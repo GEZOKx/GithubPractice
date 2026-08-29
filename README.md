@@ -95,9 +95,9 @@ Ahora ve a la URL de tu proyecto en GitHub e inspecciona el nuevo archivo `READM
 
 Para practicar el proceso de "pull", primero necesitamos hacer un cambio en GitHub web. Edita el archivo `README.md` de nuevo, lo cual puedes hacer navegando hasta el archivo y haciendo clic en el ícono del lápiz.
 
-> Soy \[tu nombre\] y edité este archivo desde GitHub web.
+> Soy Francisco Agustin Valdes Bobadilla y edité este archivo desde GitHub web.
 
-Al final de la pantalla de edición, se te pedirá que confirmes el cambio con un mensaje de commit.
+ Al final de la pantalla de edición, se te pedirá que confirmes el cambio con un mensaje de commit.
 
 Ahora vamos a obtener este cambio en nuestro repositorio local. En GitHub Desktop, el botón que antes decía "Push" ahora debería decir "Fetch" o "Pull" con un indicador del número de commits disponibles para obtener. Si dice "Fetch", haz clic una vez y espera a que diga "Pull". Una vez que diga "Pull", haz clic nuevamente y espera unos momentos para completar la actualización.
 
