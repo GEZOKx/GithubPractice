@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -22,43 +22,45 @@
                     <legend> "Informacion personal" </legend>
                     <br />
                     <label for="nombre">Primer nombre </label>
-                    <input type="text" id="nombre" name="fname" placeholder="Primer nombre"></input>
+                    <input type="text" id="nombre" name="fname" placeholder="Primer nombre">
                     <br /><br />
                     <label for="apellido">Primer apellido </label>
-                    <input type="text" id="apellido" name="lname" placeholder="Primer apellido"></input>
+                    <input type="text" id="apellido" name="lname" placeholder="Primer apellido">
                     <br /><br />
                     <label for="correo">E-mail</label>
-                    <input type="email" id="correo" name="email" placeholder="ejemplo@gmail.com"></input>
+                    <input type="email" id="correo" name="email" placeholder="ejemplo@gmail.com">
                     <br /><br />
                     <label for="Contraseña">Contraseña</label>
-                    <input type="password" id="Contraseña" name="password" placeholder="****"></input>
+                    <input type="password" id="Contraseña" name="password" placeholder="****">
                     <br /><br />
                     <label for="edad">edad</label>
-                    <input type="number" id="edad" name="age" placeholder="edad"></input>
+                    <input type="number" id="edad" name="age" placeholder="edad">
                     <br /><br />
                     <button>Guardar</button>
                 </fieldset>
                 <fieldset>
                     <legend> "Preferencias" </legend>
                     <br />
+
                     <label for="Terminos">Terminos y condiciones</label>
-                    <input type="checkbox" id="Terminos" name="terms" required></input>
-                    <br /><br />
+                    <input type="checkbox" id="Terminos" name="terms" required>
+                    <br /><br /> 
 
                     <label for="MetodoPago">Pago por transferencia</label>
-                    <input type="radio" id="MetodoPago" name="payment_method" value="opcion1"></input>
+                    <input type="radio" id="MetodoPago" name="payment_method" value="opcion1">
                     <br /><br />
 
                     <label for="MetodoPago2">Pago en efectivo</label>
-                    <input type="radio" id="MetodoPago2" name="payment_method" value="opcion2"></input>
+                    <input type="radio" id="MetodoPago2" name="payment_method" value="opcion2">
                     <br /><br />
 
                     <label for="Range">Monto de dinero </label>
-                        <input type="range" id="Range" name="range" min="1" max="100"></input>
-                        </label>
+                    <input type="range" id="Range" name="range" min="1" max="100">
                     <br /><br />
+
                     <button type="button">Guardar</button>
                     <br /><br />
+
                     <input type="submit" id="Enviar" name="Button" value="Registrarme">
                     <br /><br />
                 </fieldset>
@@ -68,10 +70,34 @@
                 <fieldset>
                     <legend>"Busqueda"</legend>
                     <label for="Busqueda"> Buscar en youtube </label>
-                        <input type="text" id="Busqueda" name="search_query" placeholder="Video"></input>
+                        <input type="text" id="Busqueda" name="search_query" placeholder="Video">
                         <button>Buscar</button>
                 </fieldset>
             </form>
+            <br /><br />
+                        <table>
+                        <thead>
+                            <tr>
+                                <th colspan="3">Usuarios</th>
+                            </tr>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Edad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>Agustin</td>
+                            <td rowspan="2">Valdes</td>
+                            <td>20</td>
+                        </tr>
+                        <tr>
+                            <td>Juan</td>
+                            <td>20</td>
+                        </tr>
+                        </tbody>
+                    </table>
         </section>
     </main>
 </body>
