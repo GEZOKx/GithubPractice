@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tienda</title>
+    <title>Tienda Online</title>
 </head>
 <body>
     <header>
-        <h1> Online shop</h1>
+        <h1> Tienda Online <sup> &copy;</sup> </h1>
         <nav> 
             <a>Contacts</a>
             <a>Products</a>
@@ -16,33 +16,53 @@
     </header>
     <main>
         <section>
-            <h2> Register</h2>
+            <h2> Registro</h2>
             <form>
                 <fieldset>
-                    <legend> Personal information </legend>
+                    <legend> "Informacion personal" </legend>
                     <br />
                     <label for="nombre">Primer nombre </label>
                     <input type="text" id="nombre" name="fname" placeholder="Primer nombre"></input>
                     <br /><br />
-                    <label for="nombre">Primer apellido </label>
-                    <input type="text" id="apellido" name="fname" placeholder="Primer apelldio"></input>
+                    <label for="apellido">Primer apellido </label>
+                    <input type="text" id="apellido" name="lname" placeholder="Primer apellido"></input>
                     <br /><br />
                     <label for="correo">E-mail</label>
-                    <input type="email" id="correo" name="fname" placeholder="ejemplo@gmail.com"></input>
+                    <input type="email" id="correo" name="email" placeholder="ejemplo@gmail.com"></input>
                     <br /><br />
-                    <label for="contraseña">contraseña</label>
-                    <input type="contrasña" id="contraseña" name="fname" placeholder="****"></input>
+                    <label for="Contraseña">Contraseña</label>
+                    <input type="password" id="Contraseña" name="password" placeholder="****"></input>
                     <br /><br />
                     <label for="edad">edad</label>
-                    <input type="edad" id="edad" name="fname" placeholder="edad"></input>
+                    <input type="number" id="edad" name="age" placeholder="edad"></input>
                     <br /><br />
                     <button>Enviar</button>
+                </fieldset>
+                <fieldset>
+                    <legend> "Preferencias" </legend>
+                    <br />
+                    <label for="Terminos">Terminos y condiciones</label>
+                    <input type="checkbox" id="Terminos" name="terms" required></input>
+                    <br /><br />
+
+                    <label for="MetodoPago">Pago por transferencia</label>
+                    <input type="radio" id="Opcion1" name="payment_method" value="opcion1"></input>
+                    <br /><br />
+
+                    <label for="MetodoPago">Pago en efectivo</label>
+                    <input type="radio" id="Opcion2" name="payment_method" value="opcion2"></input>
+                    <br /><br />
+
+                    <label for="Range">Monto de dinero </label>
+                        <input type="range" id="Range" name="range" min="1" max="100"></input>
+                        </label>
+                    <br /><br />
                 </fieldset>
             </form>
             <h2>Buscar</h2>
             <form action="https://www.youtube.com/results">
                 <fieldset>
-                    <legend>Busqueda</legend>
+                    <legend>"Busqueda"</legend>
                     <label for="Busqueda"> Buscar en youtube </label>
                         <input type="text" id="Busqueda" name="search_query" placeholder="Tutoriales"></input>
                         <button>Buscar</button>
