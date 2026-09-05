@@ -37,6 +37,8 @@
                     <input type="number" id="edad" name="age" placeholder="edad">
                     <br /><br />
                     <button>Guardar</button>
+                    <br /><br />
+                    <button type="button" onclick="alert('Registro exitoso')">Para js</button>
                 </fieldset>
                 <fieldset>
                     <legend> "Preferencias" </legend>
@@ -55,7 +57,7 @@
                     <br /><br />
 
                     <label for="Range">Monto de dinero </label>
-                    <input type="range" id="Range" name="range" min="1" max="100">
+                    <input type="range" id="Range" name="range" min="100" max="500" step="100">
                     <br /><br />
                     
                     <button type="submit" id="btnRegistrar" name="registrar" value="Registrarme">Registrarme</button>
@@ -75,7 +77,8 @@
                 </fieldset>
             </form>
             <br /><br />
-                        <table>
+            <fieldset> <legend> "Tabla de usuarios" </legend>
+            <table>
                         <thead>
                             <tr>
                                 <th colspan="3">Usuarios</th>
@@ -98,6 +101,7 @@
                         </tr>
                         </tbody>
                     </table>
+             </fieldset>
                     
         </section>
     </main>
