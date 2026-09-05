@@ -3,8 +3,96 @@ html{
 }
 
 h1{
-    color: #rgb(19, 69, 150);
+    text-decoration: wavy rgba(69, 63, 86, 0.599) underline;
     text-align: center;
     letter-spacing: 3px;
+    font-size: 50px;
+    color: rgb(23, 82, 154);
+    
+}
 
+#ofertas{
+    background-color: rgba(153, 183, 220, 0.458);
+}
+
+.oferta-destacada{
+    background-color: rgba(153, 183, 220, 0.468);
+    font-weight: bold; 
+}
+
+ul {
+    background-color: rgba(80, 154, 245, 0.423);
+    font-weight: normal;
+}
+
+ol {
+    background-color: rgba(54, 144, 254, 0.838);
+    font-weight: bold;
+}
+
+nav a{
+    text-decoration: none;
+    color: rgba(9, 74, 187, 0.764);
+    font-weight: bold;    
+}
+
+a[href^="#detalle"]{
+    color: rgba(65, 105, 175, 0.956);
+}
+
+#combos li > a
+{
+    background-color: rgb(88, 142, 213);
+    font-weight: bold;
+}
+
+#combos span ~a
+{
+    background-color: rgb(155, 198, 255);
+}
+
+#combos span + a
+{
+    background-color: rgba(208, 228, 255, 0.897);
+}
+
+#carrito-agregar:hover{
+    background-color: rgba(83, 54, 190, 0.729);
+    color: rgb(181, 147, 235);
+    font-weight: bold;
+}
+
+#carrito-comprar:active{
+    background-color: rgba(215, 139, 16, 0.729);
+    color: rgb(232, 55, 55);
+    font-weight: bold;
+}
+
+button:nth-of-type(3){
+    background-color: rgba(0, 0, 0, 0.827);
+    color: rgb(194, 154, 143);
+    font-weight: bold;
+}
+
+
+input[type="radio"]:checked
+{
+
+}
+
+input[type="radio"]:checked+label{
+    color: rgb(110, 9, 9);
+}
+
+p:hover::before{
+    content: "Inicio -> ";
+}
+
+p:hover::after{
+    content: " <- Fin";
+}
+
+p:focus{
+    color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0.829);
 }
