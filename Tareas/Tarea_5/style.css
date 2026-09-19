@@ -1,0 +1,162 @@
+section{
+    width: 60%;
+    padding: 20px;
+    border: 20px solid #ccc;
+    margin: 20px auto;
+
+}
+.planeta-boton{
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border: none;
+  background:none;
+  transition-duration: 0.8s;
+}
+
+#venus{
+     width: 100%;
+     height: 100%;
+}
+.boton-venus:hover{
+    transform: rotate(180deg);
+}
+
+#mercurio{
+     padding: 40px;
+    border-radius: 100%;
+}
+.boton-mercurio:hover{
+    transform: translateX(30px);
+}
+
+#tierra{
+     border-style: groove;
+     border-color: #224923;
+}
+.boton-tierra:hover{
+    transform: scale(2.5);
+}
+#marte{
+      border-width: 5px;
+      margin: 20px;
+}       
+.boton-marte:hover{
+    transform: skewX(30deg);
+}
+#jupiter{
+    width: 40%;
+    height: 40%;
+    overflow: hidden;
+    transition-property: width, height;
+    transition-duration: 4s, 6s;
+}
+
+#saturno{
+    width: 40%;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+#urano{
+    display: inline-block;
+    width: 40%;
+    border-width: 10px solid;
+    box-sizing: border-box;
+}
+
+#neptuno{
+    position: sticky;
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    bottom: 60px;
+    margin: 1rem;
+}
+
+.boton-jupiter{
+    transition-property: transform, color;
+    transition-duration: 3s, 3s;
+}
+
+.boton-jupiter:hover{
+    transform: scale(2.0);
+    color: #a87e44;
+}
+
+.boton-saturno{
+    transition-duration: 3s;
+    transition-property: color, background-color;
+    transition-timing-function: linear, steps(40);
+}
+
+.boton-saturno:hover{
+    transform: scale(2.0);
+    background-color: #a87e44;
+}
+
+.boton-urano{
+    animation:aparecer 2s ease-in-out infinite;
+}
+.boton-neptuno{
+    animation:cambiocolor 2s linear infinite;
+}
+@keyframes aparecer{
+    0%{opacity: 0;}
+    100%{opacity: 1;}
+}
+@keyframes cambiocolor{
+    0%{background-color: #f28080;}
+    33%{background-color: #e45353;}
+    66%{background-color: #e90a0a;}
+    100%{background-color: #f28080;}
+}
+
+#sol{
+    animation: girar 3s linear infinite;
+    animation-duration: 3s;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 8px solid #f2e205;
+    border-color: #eb9825;
+    background-color: #f2e205;
+    position: relative;
+    left: 350px;
+}
+#sol:hover{
+    animation-play-state: paused;
+}
+
+.boton-sol{
+    animation: girar 3s linear infinite;
+    animation-play-state: paused;
+}
+@keyframes girar{
+    from{transform: rotateY(0deg);}
+    to{transform: rotateY(360deg);}
+}
+
+#nube{
+    animation:moverNube 3s ease-in-out infinite alternate;
+    animation-direction: alternate;
+    width: 70px;
+    height: 35px;
+    border-radius:50%;
+    border-style: solid;
+    border-width: 5px;
+    border-color: #d3e9ef;
+    background-color:#e1f4f4;
+    position: relative;
+    top: 75px;
+    left: 325px;
+    z-index: 2;
+}
+.boton-nube{
+    animation: moverNube 3s linear infinite alternate;
+}
+@keyframes moverNube {
+    from{left: 325px;}
+    to{left: 355px;}
+}
