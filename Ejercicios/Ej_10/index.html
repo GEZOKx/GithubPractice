@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Súper Fresco — Nómina</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="nomina.js"></script>
+  </head>
+  <body>
+    <header>
+      <h1>🥬 Súper Fresco</h1>
+      <span>Tarea: Nómina de empleados</span>
+    </header>
+
+    <main>
+      <section class="personal">
+        <h2>Personal</h2>
+        <ul id="listaEmpleados"></ul>
+      </section>
+
+      <div class="columna-derecha">
+        <section class="acciones">
+          <h2>Nómina</h2>
+          <p class="nomina">Total mensual: <span id="nomina">$0.00</span></p>
+          <button class="btnDeshacer" onclick="manejarDeshacer()">↩ Deshacer último cambio</button>
+
+          <div class="bloque">
+            <h3>Filtrar por puesto</h3>
+            <input type="text" id="inputPuesto" placeholder="Ej. ger" />
+            <button onclick="manejarFiltrar()">Filtrar</button>
+            <span id="resultadoFiltro"></span>
+          </div>
+
+          <div class="bloque">
+            <h3>Ver bonos</h3>
+            <button onclick="manejarVerBonos()">Calcular bonos</button>
+            <span id="resultadoBonos"></span>
+          </div>
+        </section>
+
+        <section class="consola-panel">
+          <h2>Resultado esperado de consola</h2>
+          <p class="nota">mostrarEmpleados() solo imprime en la consola del navegador (F12) — esto es una copia en pantalla del mismo resultado, para que lo veas sin abrir devtools.</p>
+          <p id="consolaEmpleados" class="consola"></p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

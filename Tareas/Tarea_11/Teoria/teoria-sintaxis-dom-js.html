@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Teoría: Sintaxis de parámetros y DOM en JavaScript</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 0 20px; line-height: 1.5; color: #222; }
+    header { border-bottom: 2px solid #333; padding: 16px 0; }
+    nav a { margin-right: 10px; font-size: 0.9em; }
+    section { padding: 24px 0; border-bottom: 1px solid #ddd; }
+    table { border-collapse: collapse; margin: 12px 0; }
+    table, th, td { border: 1px solid #999; padding: 6px 10px; }
+    pre { background: #f4f4f4; padding: 12px; overflow-x: auto; border-left: 4px solid #888; }
+    code { font-family: Consolas, monospace; }
+    footer { padding: 16px 0; color: #666; font-size: 0.9em; }
+    .extra { display: inline-block; background: #fdf1e0; color: #b5651d; font-weight: bold; font-size: 0.8em; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+    .tip { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 8px 12px; margin: 12px 0; }
+    .warn { background: #fdecea; border-left: 4px solid #c62828; padding: 8px 12px; margin: 12px 0; }
+    h1 { margin-bottom: 4px; }
+    .subtitulo { color: #555; margin-top: 0; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Teoría: Sintaxis de parámetros y DOM en JavaScript</h1>
+    <nav>
+      <a href="#default">Parámetros default</a>
+      <a href="#rest">Rest params</a>
+      <a href="#spread">Spread</a>
+      <a href="#destructuring">Destructuring</a>
+      <a href="#window-bom">window y BOM</a>
+      <a href="#dom-intro">El DOM</a>
+      <a href="#queryselector">querySelector</a>
+      <a href="#contenido">textContent / innerHTML</a>
+      <a href="#classlist">classList</a>
+      <a href="#crear-insertar">Crear e insertar</a>
+      <a href="#remover">Remover elementos</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="default">
+      <h2>1. Parámetros default</h2>
+      <p>Un parámetro puede tener un valor por default: si quien llama a la función no le da ese argumento, se usa el valor indicado en vez de <code>undefined</code>.</p>
+      <pre><code>function saludar(nombre = "invitado", mensaje = "Hola") {
+  console.log(`${mensaje}, ${nombre}`);
+}
+
+saludar();              // "Hola, invitado"
+saludar("Sam");         // "Hola, Sam"
+saludar("Sam", "Qué tal"); // "Qué tal, Sam"</code></pre>
+      <p>El default solo se usa si el argumento falta (o es explícitamente <code>undefined</code>) — si se pasa <code>null</code>, <code>0</code> o <code>""</code>, esos valores se respetan tal cual.</p>
+    </section>
+
+    <section id="rest">
+      <h2>2. Rest params</h2>
+      <p>Cuando una función debe aceptar una cantidad indefinida de argumentos, se usan los 3 puntos (<code>...</code>) antes del último parámetro — "junta" todo lo que sobre en un arreglo. Por eso se llama <em>rest</em> (lo que resta).</p>
+      <pre><code>function sumarTodo(...numeros) {
+  return numeros.reduce((total, n) => total + n, 0);
+}
+
+sumarTodo(1, 2, 3);       // 6
+sumarTodo(10, 20, 30, 40); // 100</code></pre>
+      <p>También se puede combinar con parámetros normales, siempre que el rest vaya al final:</p>
+      <pre><code>function repartir(responsable, ...tareas) {
+  console.log(`${responsable} se encarga de: ${tareas.join(", ")}`);
+}
+
+repartir("Dana", "limpiar", "cocinar", "comprar");</code></pre>
+    </section>
+
+    <section id="spread">
+      <h2>3. Spread</h2>
+      <p>Los mismos 3 puntos (<code>...</code>), pero en el sentido contrario: en vez de juntar varios valores en un arreglo, <strong>expande</strong> un arreglo u objeto en sus elementos sueltos.</p>
+      <p><strong>En llamadas a función</strong> — útil con funciones que esperan varios argumentos, no un arreglo:</p>
+      <pre><code>const numeros = [4, 8, 15, 16, 23, 42];
+Math.max(...numeros); // 42 — equivale a Math.max(4, 8, 15, 16, 23, 42)</code></pre>
+      <p><strong>Con arreglos</strong> — para unir varios en uno nuevo, sin mutar los originales:</p>
+      <pre><code>const frutas = ["manzana", "pera"];
+const verduras = ["zanahoria", "apio"];
+const todo = [...frutas, ...verduras];
+// ["manzana", "pera", "zanahoria", "apio"]</code></pre>
+      <p><strong>Con objetos</strong> — para combinar propiedades de varios objetos en uno nuevo. Si una propiedad se repite, gana la que está más a la derecha:</p>
+      <pre><code>const base = { tema: "claro", idioma: "es" };
+const ajustes = { idioma: "en", notificaciones: true };
+const configFinal = { ...base, ...ajustes };
+// { tema: "claro", idioma: "en", notificaciones: true }</code></pre>
+      <div class="tip">Esto es la forma corta de "clonar y modificar" sin tocar el objeto original — muy común para no mutar datos que vienen de otro lado.</div>
+    </section>
+
+    <section id="destructuring">
+      <h2>4. Destructuring</h2>
+      <p>Permite sacar varios valores de un arreglo u objeto y guardarlos en variables, en una sola línea.</p>
+      <p><strong>Arrays</strong> — se desestructura por posición:</p>
+      <pre><code>const colores = ["rojo", "verde", "azul"];
+const [primero, segundo, ...resto] = colores;
+// primero = "rojo", segundo = "verde", resto = ["azul"]</code></pre>
+      <p><strong>Objetos</strong> — se desestructura por nombre de propiedad. Se puede renombrar la variable y/o darle un valor default:</p>
+      <pre><code>const producto = { nombre: "Teclado", precio: 450 };
+
+const { nombre, precio: costo, stock = 0 } = producto;
+// nombre = "Teclado", costo = 450, stock = 0 (no existía en el objeto)</code></pre>
+      <p><strong>En parámetros de función</strong> — para no tener que escribir <code>objeto.campo</code> todo el tiempo:</p>
+      <pre><code>function mostrarProducto({ nombre, precio }) {
+  return `${nombre} cuesta $${precio}`;
+}
+
+mostrarProducto(producto); // "Teclado cuesta $450"</code></pre>
+      <p>Se puede combinar todo: renombrar y dar default dentro de un parámetro destructurado.</p>
+    </section>
+
+    <section id="window-bom">
+      <h2>5. window y el BOM <span class="extra">EXTRA</span></h2>
+      <p>La variable <code>window</code> representa la ventana del navegador, y da acceso al <strong>BOM</strong> (Browser Object Model): todo lo que tiene que ver con el navegador en sí, no con la página — su tamaño, la URL, el historial de navegación, abrir o cerrar pestañas, etc.</p>
+      <pre><code>window.innerWidth;     // ancho de la ventana, en pixeles
+window.location.href;  // la URL actual
+window.open("https://www.ejemplo.com"); // abre una pestaña nueva</code></pre>
+      <p><code>document</code> (el DOM, que vemos a continuación) en realidad vive dentro de <code>window</code> — <code>window.document</code> — pero casi nadie escribe el <code>window.</code> porque es implícito.</p>
+      <p>Más información: <a href="https://developer.mozilla.org/es/docs/Web/API/Window">MDN — Window</a>.</p>
+    </section>
+
+    <section id="dom-intro">
+      <h2>6. El DOM</h2>
+      <p>El <strong>DOM</strong> (Document Object Model) es la forma en la que JavaScript "ve" el HTML de una página: cada etiqueta se convierte en un objeto con el que se puede interactuar — leerlo, cambiarlo, moverlo o quitarlo. Se accede a él mediante <code>document</code>.</p>
+      <pre><code>console.log(document); // todo el HTML de la página, como objeto</code></pre>
+      <p>Para hacer algo útil con el DOM, el primer paso siempre es <strong>seleccionar</strong> el elemento con el que se quiere trabajar.</p>
+    </section>
+
+    <section id="queryselector">
+      <h2>7. querySelector y querySelectorAll</h2>
+      <p>Ambos reciben un selector <strong>igual que en CSS</strong>: <code>#id</code>, <code>.clase</code>, una etiqueta sola, o combinaciones más específicas.</p>
+      <table>
+        <thead><tr><th>Método</th><th>Regresa</th></tr></thead>
+        <tbody>
+          <tr><td><code>document.querySelector(selector)</code></td><td>El primer elemento que coincide (o <code>null</code> si no hay ninguno)</td></tr>
+          <tr><td><code>document.querySelectorAll(selector)</code></td><td>Todos los elementos que coinciden, como una lista recorrible con <code>forEach</code> o <code>for...of</code></td></tr>
+        </tbody>
+      </table>
+      <pre><code>document.querySelector("#titulo");       // el elemento con id="titulo"
+document.querySelector(".destacado");    // el primer elemento con class="destacado"
+document.querySelectorAll("li");         // todos los &lt;li&gt; de la página
+document.querySelectorAll(".tarjeta");   // todos los elementos con class="tarjeta"</code></pre>
+      <div class="tip"><code>querySelector</code>/<code>querySelectorAll</code> reemplazan por completo a <code>getElementById</code>, <code>getElementsByClassName</code> y <code>getElementsByTagName</code> — hacen lo mismo (y más), con un solo selector tipo CSS que ya conocen.</div>
+    </section>
+
+    <section id="contenido">
+      <h2>8. textContent vs innerHTML</h2>
+      <p>Una vez seleccionado un elemento, estas dos propiedades permiten leer o cambiar lo que tiene adentro.</p>
+      <table>
+        <thead><tr><th>Propiedad</th><th>Qué hace</th></tr></thead>
+        <tbody>
+          <tr><td><code>textContent</code></td><td>Trata todo como texto plano — si le asignan HTML, se muestra literal (las etiquetas no se interpretan)</td></tr>
+          <tr><td><code>innerHTML</code></td><td>Interpreta lo que le asignen como HTML real — crea las etiquetas que contenga</td></tr>
+        </tbody>
+      </table>
+      <pre><code>const parrafo = document.querySelector("p");
+
+parrafo.textContent = "Hola &lt;b&gt;mundo&lt;/b&gt;"; // se ve el texto tal cual, con las etiquetas
+parrafo.innerHTML = "Hola &lt;b&gt;mundo&lt;/b&gt;";   // "mundo" se ve en negritas de verdad</code></pre>
+      <div class="warn"><code>innerHTML</code> es más flexible, pero si el contenido viene de un usuario (no de datos propios del programa) puede ser riesgoso — por eso <code>textContent</code> es la opción más segura cuando solo se necesita mostrar texto.</div>
+    </section>
+
+    <section id="classlist">
+      <h2>9. classList</h2>
+      <p><code>classList</code> da acceso a las clases CSS de un elemento, con métodos para agregarlas, quitarlas o alternarlas sin tener que armar el string de clases a mano.</p>
+      <pre><code>const tarjeta = document.querySelector(".tarjeta");
+
+tarjeta.classList.add("seleccionada");     // agrega la clase
+tarjeta.classList.remove("seleccionada");  // la quita
+tarjeta.classList.toggle("seleccionada");   // alterna: la pone o la quita
+tarjeta.classList.contains("seleccionada"); // true/false, sin modificar nada</code></pre>
+      <div class="tip"><code>toggle</code> es útil cuando un mismo botón debe "prender y apagar" algo — ahorra escribir el <code>if</code> que decide entre <code>add</code> y <code>remove</code>.</div>
+    </section>
+
+    <section id="crear-insertar">
+      <h2>10. Crear e insertar elementos</h2>
+      <p><code>createElement</code> fabrica un elemento nuevo (todavía no está en la página), y <code>append</code> lo inserta dentro de otro elemento, al final.</p>
+      <pre><code>const nuevo = document.createElement("div");
+nuevo.textContent = "Soy nuevo aquí";
+nuevo.classList.add("tarjeta");
+
+const contenedor = document.querySelector("#lista");
+contenedor.append(nuevo);</code></pre>
+      <p>Un elemento recién creado con <code>createElement</code> no aparece en la página hasta que se inserta en algún lado con <code>append</code> (o similares) — se puede armar y modificar libremente antes de insertarlo.</p>
+    </section>
+
+    <section id="remover">
+      <h2>11. Remover elementos</h2>
+      <p>Para quitar un elemento de la página, ya no hace falta ir a buscar a su elemento padre — cualquier elemento sabe quitarse a sí mismo:</p>
+      <pre><code>const tarjeta = document.querySelector(".tarjeta");
+tarjeta.remove();</code></pre>
+      <p><span class="extra">EXTRA</span> Antes de que existiera <code>.remove()</code>, había que hacerlo desde el padre: <code>elemento.parentElement.removeChild(elemento)</code>. Todavía se puede ver en código viejo, pero ya no hace falta escribirlo así.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Para leer más:
+      <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Functions/rest_parameters">MDN — rest parameters</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Spread_syntax">MDN — spread syntax</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment">MDN — destructuring</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Document/querySelector">MDN — querySelector</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Element/classList">MDN — classList</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Document/createElement">MDN — createElement</a>
+    </p>
+  </footer>
+
+</body>
+</html>

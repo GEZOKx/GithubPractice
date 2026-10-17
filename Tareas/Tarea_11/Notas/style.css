@@ -1,0 +1,10 @@
+.tarjeta{
+    margin: 1rem;
+    padding: 12px;
+    border: 1px solid #444444;
+}
+
+.tarjeta.seleccionada{
+    border-color: rgb(104, 175, 33);
+    background-color: rgb(227, 136, 136);
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Teoría: CSS — colores, texto, selectores y pseudo-clases</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 0 20px; line-height: 1.5; color: #222; }
+    header { border-bottom: 2px solid #333; padding: 16px 0; }
+    nav a { margin-right: 12px; }
+    section { padding: 24px 0; border-bottom: 1px solid #ddd; }
+    table { border-collapse: collapse; margin: 12px 0; }
+    table, th, td { border: 1px solid #999; padding: 6px 10px; }
+    pre { background: #f4f4f4; padding: 12px; overflow-x: auto; border-left: 4px solid #888; }
+    code { font-family: Consolas, monospace; }
+    footer { padding: 16px 0; color: #666; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Teoría: CSS — colores, texto, selectores y pseudo-clases</h1>
+    <p>Cómo se ve un elemento, cómo se colorea, y cómo elegir el elemento correcto para aplicarle un estilo.</p>
+    <nav>
+      <a href="#que-es-css">Qué es CSS</a>
+      <a href="#colores-texto">Colores y texto</a>
+      <a href="#selectores">Selectores</a>
+      <a href="#combinadores">Combinadores</a>
+      <a href="#pseudo">Pseudo-clases/elementos</a>
+      <a href="#cascada">Cascada</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="que-es-css">
+      <h2>1. ¿Qué es CSS?</h2>
+      <p>CSS (Cascading Style Sheets) describe <strong>cómo se ven</strong> los elementos HTML: color, tamaño, forma, posición. Se llama "en cascada" porque los estilos se resuelven en capas cuando hay conflictos entre reglas.</p>
+      <p>Sintaxis básica:</p>
+      <pre><code>selector {
+  propiedad: valor;
+}</code></pre>
+      <h3>3 formas de incluir CSS</h3>
+      <ul>
+        <li><strong>Inline</strong>: dentro del atributo <code>style</code> de un elemento. Mala práctica — no se comparte entre elementos.</li>
+        <li><strong>Interno</strong>: con una etiqueta <code>&lt;style&gt;</code> en el <code>&lt;head&gt;</code>. No se comparte entre documentos distintos.</li>
+        <li><strong>Externo</strong>: en un archivo <code>.css</code> aparte, enlazado con <code>&lt;link&gt;</code>. La mejor práctica — se reutiliza en todo el sitio.</li>
+      </ul>
+      <pre><code>&lt;link rel="stylesheet" href="estilos.css"&gt;</code></pre>
+    </section>
+
+    <section id="colores-texto">
+      <h2>2. Colores y propiedades de texto</h2>
+
+      <h3>Tipografía global (font-family)</h3>
+      <p><code>font-family</code> acepta una lista de opciones (font stack): el navegador usa la primera que tenga disponible. Arial, Helvetica, sans-serif es un valor que van a ver una y otra vez — es prácticamente un estándar, no algo que normalmente se inventa desde cero.</p>
+      <pre><code>html {
+  font-family: Arial, Helvetica, sans-serif;
+}</code></pre>
+      <p><em>Otros font-stacks comunes que van a ver en proyectos reales: <code>Georgia, "Times New Roman", serif</code> (serif) y <code>"Courier New", monospace</code> (monoespaciada, para código).</em></p>
+
+      <h3>Propiedades de texto</h3>
+      <ul>
+        <li><code>text-align</code>: alineación horizontal (<code>left</code>, <code>center</code>, <code>right</code>, <code>justify</code>).</li>
+        <li><code>letter-spacing</code>: espacio entre letras. También existe <code>word-spacing</code> (espacio entre palabras).</li>
+        <li><code>font-size</code>: tamaño del texto. <code>px</code> es absoluto; <code>em</code>/<code>rem</code> son relativos (más flexibles para diseño responsivo).</li>
+        <li><code>color</code>: color del <strong>texto</strong> (no confundir con el fondo).</li>
+        <li><code>font-weight</code>: grosor del texto — <code>normal</code> (400), <code>bold</code> (700), <code>bolder</code> (relativo al padre), o un número de 100 a 900.</li>
+        <li><code>text-transform</code>: <code>uppercase</code>, <code>lowercase</code>, <code>capitalize</code> — cambia cómo se VE el texto sin tocar el HTML original.</li>
+      </ul>
+      <p>Un ejemplo combinando varias:</p>
+      <pre><code>.titulo-generico {
+  text-align: right;
+  letter-spacing: 1px;
+  font-size: 28px;
+  color: navy;
+  text-transform: uppercase;
+}</code></pre>
+
+      <h3>Colores con transparencia</h3>
+      <p><code>background-color</code> pinta el fondo (distinto de <code>color</code>, que pinta el texto). <code>rgba(r, g, b, a)</code> y <code>hsla(tono, saturación, luminosidad, a)</code> agregan un cuarto valor, <strong>alfa</strong>, la transparencia (0 = invisible, 1 = opaco).</p>
+      <pre><code>.aviso-generico {
+  background-color: rgba(0, 0, 0, 0.05);
+}</code></pre>
+      <p><em>El mismo efecto de transparencia también se puede lograr con hexadecimal de 8 dígitos, por ejemplo <code>#00000010</code> — los últimos 2 dígitos son el alfa.</em></p>
+
+      <h3>Herencia de font-weight</h3>
+      <p>Muchas propiedades de texto se <strong>heredan</strong>: si un contenedor (<code>ul</code>, <code>ol</code>) define un <code>font-weight</code>, sus hijos (<code>li</code>) lo heredan a menos que ellos mismos definan otro. Lo mismo pasa con <code>color</code>, <code>font-family</code> y <code>line-height</code> — pero NO con <code>border</code>, <code>margin</code> ni <code>background</code>, que nunca se heredan.</p>
+      <pre><code>ul { font-weight: normal; }
+ol { font-weight: bold; }</code></pre>
+    </section>
+
+    <section id="selectores">
+      <h2>3. Selectores</h2>
+      <table>
+        <thead><tr><th>Selector</th><th>Aplica a</th></tr></thead>
+        <tbody>
+          <tr><td><code>h1</code></td><td>Todos los elementos de ese tipo</td></tr>
+          <tr><td><code>.clase</code></td><td>Todos los elementos con <code>class="clase"</code></td></tr>
+          <tr><td><code>#id</code></td><td>El único elemento con ese <code>id</code></td></tr>
+          <tr><td><code>A B</code></td><td>Todo B dentro de A (descendiente, sin importar qué tan anidado)</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Selector descendiente</h3>
+      <p>Un espacio entre dos selectores significa "dentro de". Por ejemplo, <code>.sidebar a</code> selecciona solo los <code>&lt;a&gt;</code> que están dentro de un elemento con clase <code>sidebar</code>, no todos los enlaces de la página.</p>
+      <pre><code>.sidebar a {
+  text-decoration: underline;
+  color: steelblue;
+}</code></pre>
+
+      <h3>Nombres de clase e id descriptivos</h3>
+      <p>Un buen nombre dice <strong>de qué</strong> es el elemento, no solo qué le pasa visualmente. <code>.caja2</code> o <code>.roja</code> no dicen nada del contenido; <code>.tarjeta-producto</code> o <code>.alerta-error</code> sí. Lo mismo con ids: <code>#boton1</code> dice poco, <code>#formulario-enviar</code> dice a qué componente pertenece y qué hace.</p>
+
+      <h3>Selectores de atributo</h3>
+      <p>Seleccionan elementos según un atributo HTML, sin importar la clase o el id.</p>
+      <table>
+        <thead><tr><th>Selector</th><th>Selecciona elementos cuyo atributo...</th></tr></thead>
+        <tbody>
+          <tr><td><code>[attr^="valor"]</code></td><td>EMPIEZA con ese valor</td></tr>
+          <tr><td><code>[attr$="valor"]</code></td><td>TERMINA con ese valor</td></tr>
+          <tr><td><code>[attr*="valor"]</code></td><td>CONTIENE ese valor en cualquier parte</td></tr>
+        </tbody>
+      </table>
+      <pre><code>img[src$=".png"] {
+  border: 1px solid gray;
+}</code></pre>
+      <p><em>Otro uso muy común: <code>a[target="_blank"]</code> para marcar de forma distinta los enlaces que abren en pestaña nueva.</em></p>
+    </section>
+
+    <section id="combinadores">
+      <h2>4. Combinadores</h2>
+      <p>Los combinadores describen la <strong>relación</strong> entre dos selectores.</p>
+      <table>
+        <thead><tr><th>Combinador</th><th>Significa</th></tr></thead>
+        <tbody>
+          <tr><td><code>A &gt; B</code></td><td>B es HIJO DIRECTO de A (no nieto)</td></tr>
+          <tr><td><code>A ~ B</code></td><td>B es cualquier hermano que aparezca DESPUÉS de A</td></tr>
+          <tr><td><code>A + B</code></td><td>B es el hermano INMEDIATO siguiente de A</td></tr>
+        </tbody>
+      </table>
+
+      <pre><code>.menu > li {
+  font-weight: bold;
+}
+.aviso ~ p {
+  color: gray;
+}
+.aviso + p {
+  margin-top: 0;
+}</code></pre>
+      <p>Ejemplo: en <code>&lt;div&gt;&lt;p class="aviso"&gt;...&lt;/p&gt;&lt;hr&gt;&lt;p&gt;...&lt;/p&gt;&lt;/div&gt;</code>, el <code>&lt;hr&gt;</code> en medio hace que <code>.aviso ~ p</code> sí aplique, pero <code>.aviso + p</code> no (no son adyacentes).</p>
+    </section>
+
+    <section id="pseudo">
+      <h2>5. Pseudo-clases y pseudo-elementos</h2>
+      <p>Una <strong>pseudo-clase</strong> (<code>:algo</code>) selecciona un elemento según su <strong>estado</strong>, no según su HTML.</p>
+      <table>
+        <thead><tr><th>Pseudo-clase</th><th>Cuándo aplica</th></tr></thead>
+        <tbody>
+          <tr><td><code>:hover</code></td><td>Mientras el mouse está encima</td></tr>
+          <tr><td><code>:active</code></td><td>Mientras se hace clic</td></tr>
+          <tr><td><code>:focus</code></td><td>Mientras el elemento tiene el foco del teclado (Tab) — clave para accesibilidad</td></tr>
+          <tr><td><code>:checked</code></td><td>Cuando un checkbox/radio está marcado</td></tr>
+          <tr><td><code>:first-child</code> / <code>:last-child</code></td><td>El primer/último hijo de su contenedor</td></tr>
+          <tr><td><code>:nth-of-type(n)</code></td><td>El n-ésimo elemento de ese tipo dentro de su contenedor</td></tr>
+          <tr><td><code>:not(selector)</code></td><td>Excluye los elementos que cumplen ese selector</td></tr>
+        </tbody>
+      </table>
+
+      <pre><code>#menu-lateral:hover { background-color: gainsboro; }
+#panel-cerrar:active { background-color: firebrick; }
+button:nth-of-type(3) { background-color: khaki; }
+input[type="radio"]:checked { accent-color: purple; }</code></pre>
+
+      <h3>Pseudo-elementos</h3>
+      <p>Un <strong>pseudo-elemento</strong> (<code>::algo</code>) no selecciona algo que ya existe: CREA un elemento virtual dentro del seleccionado. <code>::before</code> lo inserta al inicio, <code>::after</code> al final. Siempre necesitan la propiedad <code>content</code> (aunque sea vacío) para poder verse, y se pueden combinar con una pseudo-clase.</p>
+
+      <pre><code>.tarjeta:hover::before {
+  content: "→ ";
+  color: gray;
+}
+.tarjeta:hover::after {
+  content: " ←";
+  color: gray;
+}</code></pre>
+      <p><em>::first-letter y ::first-line también son pseudo-elementos comunes — por ejemplo, para agrandar la primera letra de un artículo, como en revistas.</em></p>
+    </section>
+
+    <section id="cascada">
+      <h2>6. Cascada y especificidad</h2>
+      <p>Cuando dos reglas le aplican al mismo elemento, gana la más <strong>específica</strong>: id &gt; clase/atributo &gt; tipo de elemento. Si empatan en especificidad, gana la que está escrita más abajo en el código (o la más "externa": inline &gt; <code>&lt;style&gt;</code> &gt; archivo externo) — salvo <code>!important</code>, que invierte el orden.</p>
+      <p>Algunos elementos (como los botones) no heredan <code>color</code> automáticamente; se puede forzar con <code>color: inherit;</code>.</p>
+      <p>Chrome muestra, al inspeccionar un elemento, el CSS tachado cuando una regla pierde contra otra más específica — muy útil para depurar.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Para leer más:
+      <a href="https://developer.mozilla.org/es/docs/Web/CSS/CSS_selectors">MDN — selectores CSS</a> ·
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-classes">MDN — pseudo-clases</a> ·
+      <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Pseudo-elements">MDN — pseudo-elementos</a> ·
+      <a href="https://polypane.app/css-specificity-calculator/">Calculadora de especificidad</a>
+    </p>
+  </footer>
+
+</body>
+</html>

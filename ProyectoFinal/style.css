@@ -1,0 +1,30 @@
+.socios {
+  overflow: hidden;
+}
+
+.socios-pista {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: desplazar 30s linear infinite;
+}
+
+.socios-pista img {
+  height: 100px;
+  margin-right: 2rem;
+  filter: grayscale(100%);
+  transition: filter 0.3s;
+}
+.socios-pista img:hover {
+  filter: grayscale(0%);
+}
+
+@keyframes desplazar {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+.socios:hover .socios-pista {
+  animation-play-state: paused;
+}
+

@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dragon Insurances</title>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="img/EscudoDI.png">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  
+</head>
+
+<body data-bs-theme="dark">
+
+  <!-- Barra de navegacion
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Dragon Insurances</a>
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Enlaces</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Seguros
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#"> Auto/Suv</a></li>
+              <li><a class="dropdown-item" href="#"> Pickup</a></li>
+              <li><a class="dropdown-item" href="#"> Motocicleta</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"> Seguro de vida</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link disabled" aria-disabled="true">Usuario: Agustin</a>
+          </li>
+        </ul>
+
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Busqueda" aria-label="Search"/>
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  -->
+
+
+  <!-- Hero -->
+  <div class="bg-danger text-center text-white p-1">
+    <div class="d-flex justify-content-center align-items-center gap-5">
+      <img src="img/DragonFondo.png" alt="Logo de Dragon Insurances" style="height: 200px;">
+      <h1 class="display-2 fw-bold text-white m-0">Dragon Insurances</h1>
+    </div>
+  </div>
+
+<!-- Carrusel socios -->
+<div class="container my-5">
+  <div class="alert alert-danger" role="alert">
+  Nuestros socios estratégicos: Trabajamos con las mejores aseguradoras para ofrecerle la mejor cobertura.
+  </div>
+
+  <div class="socios">
+    <div class="socios-pista">
+      <!-- Primera tanda -->
+      <img src="img/socios/LogoGNP.webp" alt="GNP">
+      <img src="img/socios/LogoBBVA.png" alt="BBVA">
+      <img src="img/socios/LogoChubb.png" alt="CHUBB">
+      <img src="img/socios/LogoQualitas.png" alt="QUALITAS">
+      <img src="img/socios/LogoZurich.webp" alt="ZURICH">
+
+      <!-- Segunda tanda: los mismos logos repetidos -->
+      <img src="img/socios/LogoGNP.webp" alt="" aria-hidden="true">
+      <img src="img/socios/LogoBBVA.png" alt="" aria-hidden="true">
+      <img src="img/socios/LogoChubb.png" alt="" aria-hidden="true">
+      <img src="img/socios/LogoQualitas.png" alt="" aria-hidden="true">
+      <img src="img/socios/LogoZurich.webp" alt="" aria-hidden="true">
+    </div>
+  </div>
+</div>
+
+  <br>
+
+
+  <!-- Formularios -->
+  <div class="container my-5">
+    <div class="row g-4">
+
+      <!-- Formulario del vehiculo -->
+      <div class="col-md-6">
+        <form class="border border-2 border-danger rounded p-4 h-100">
+          <h2 class="text-center mb-4">Datos del vehículo</h2>
+
+          <!-- Botones de seleccion -->
+
+          <div class="d-flex justify-content-center mb-3">
+            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked>
+            <label class="btn btn-outline-danger" for="btnradio1">
+           <i class="bi bi-car-front-fill"></i>
+           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-car-front-fill" viewBox="0 0 16 16">
+            <path d="M2.52 3.515A2.5 2.5 0 0 1 4.82 2h6.362c1 0 1.904.596 2.298 1.515l.792 1.848c.075.175.21.319.38.404.5.25.855.715.965 1.262l.335 1.679q.05.242.049.49v.413c0 .814-.39 1.543-1 1.997V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.338c-1.292.048-2.745.088-4 .088s-2.708-.04-4-.088V13.5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-1.892c-.61-.454-1-1.183-1-1.997v-.413a2.5 2.5 0 0 1 .049-.49l.335-1.68c.11-.546.465-1.012.964-1.261a.8.8 0 0 0 .381-.404l.792-1.848ZM3 10a1 1 0 1 0 0-2 1 1 0 0 0 0 2m10 0a1 1 0 1 0 0-2 1 1 0 0 0 0 2M6 8a1 1 0 0 0 0 2h4a1 1 0 1 0 0-2zM2.906 5.189a.51.51 0 0 0 .497.731c.91-.073 3.35-.17 4.597-.17s3.688.097 4.597.17a.51.51 0 0 0 .497-.731l-.956-1.913A.5.5 0 0 0 11.691 3H4.309a.5.5 0 0 0-.447.276L2.906 5.19Z"/>
+          </svg>
+            Auto/Suv
+            </label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
+            <label class="btn btn-outline-danger" for="btnradio2">
+          <i class="bi bi-truck-front-fill"></i> 
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-truck-front-fill" viewBox="0 0 16 16">
+            <path d="M3.5 0A2.5 2.5 0 0 0 1 2.5v9c0 .818.393 1.544 1 2v2a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5V14h6v1.5a.5.5 0 0 0 .5.5h2a.5.5 0 0 0 .5-.5v-2c.607-.456 1-1.182 1-2v-9A2.5 2.5 0 0 0 12.5 0zM3 3a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v3.9c0 .625-.562 1.092-1.17.994C10.925 7.747 9.208 7.5 8 7.5s-2.925.247-3.83.394A1.008 1.008 0 0 1 3 6.9zm1 9a1 1 0 1 1 0-2 1 1 0 0 1 0 2m8 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2m-5-2h2a1 1 0 1 1 0 2H7a1 1 0 1 1 0-2"/>
+          </svg>  
+              Pickup</label>
+
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
+            <label class="btn btn-outline-danger" for="btnradio3">
+          <i class="bi bi-bicycle"></i> 
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bicycle" viewBox="0 0 16 16">
+                <path d="M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5m1.5 2.443-.508.814c.5.444.85 1.054.967 1.743h1.139zM8 9.057 9.598 6.5H6.402zM4.937 9.5a2 2 0 0 0-.487-.877l-.548.877zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53z"/>
+              </svg>
+              Motocicleta</label>
+            </div>
+          </div>
+
+          <br>
+
+          <!-- Seleccion de año -->
+          <div class="mb-3">
+            <label for="anioVehiculo" class="form-label">Año del vehículo</label>
+            <select class="form-select" id="anioVehiculo" name="anioVehiculo" required>
+              <option value="" selected disabled>Seleccione el año</option>
+            </select>
+          </div>
+          <script src="js/anios.js"></script>
+
+          <!-- Marca -->
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Marca de su vehículo</label>
+            <input type="text" class="form-control" id="VehiculoMarca" placeholder="Ingrese la marca de su vehículo">
+          </div>
+
+          <!-- Modelo -->
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Modelo de su vehículo</label>
+            <input type="text" class="form-control" id="VehiculoModelo" placeholder="Ingrese el modelo de su vehículo">
+          </div>
+
+          <br>
+
+          <!-- Terminos y condiciones -->
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Acepto los términos y condiciones</label>
+          </div>
+
+          <!-- Boton de envio -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button class="btn btn-danger me-md-2" type="submit">Enviar</button>
+          </div>
+        </form>
+      </div>
+      <!-- Fin del formulario del vehiculo -->
+
+
+      <!-- Formulario de datos personales -->
+      <div class="col-md-6">
+          <form class="border border-2 border-danger rounded p-4 h-100">
+            <h2 class="text-center mb-4">Datos Personales</h2>
+
+            <div class="mb-3">
+              <label for="nombre" class="form-label">Nombre completo</label>
+              <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre completo">
+            </div>
+
+            <div class="mb-3">
+              <label for="email" class="form-label">Correo electrónico</label>
+              <input type="email" class="form-control" id="email" placeholder="Ingrese su correo electrónico">
+            </div>
+
+            <div class="mb-3">
+              <label for="telefono" class="form-label">Número de teléfono</label>
+              <input type="tel" class="form-control" id="telefono" placeholder="Ingrese su número de teléfono">
+            </div>
+            <!-- Botones de envio -->
+                       <!-- Terminos y condiciones -->
+              <div class="mb-3 form-check">
+               <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                <label class="form-check-label" for="exampleCheck1">Acepto los términos y condiciones</label>
+              </div>
+
+                      <!-- Boton de envio -->
+              <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-danger me-md-2" type="submit">Enviar</button>
+              </div>
+             
+          </form>
+      </div>
+      <!-- Fin del formulario de datos personales -->
+
+    </div>
+  </div>
+
+
+  <!-- Aviso -->
+  <div class="alert alert-light" role="alert">
+    Por favor, complete el siguiente formulario para obtener una cotización de seguro. Asegúrese de proporcionar información precisa para que podamos ofrecerle la mejor cobertura posible.
+  </div>
+
+
+  <!-- Opiniones -->
+  <div class="container mt-5">
+    <h2 class="text-center mb-4">Opiniones de Nuestros Clientes</h2>
+
+    <div class="row">
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Juan Pérez</h5>
+            <p class="card-text">
+              Excelente servicio. Me ayudaron a encontrar la mejor póliza para mi auto. Llevaba demasiado tiempo cotizando seguros en distintas partes pero solo me topaba con paginas con precios excesivos y con poca información. Dragon Insurances me ofreció un trato personalizado y precios competitivos.
+              Son muy atentos y siempre están dispuestos a responder cualquier pregunta que pueda tener. Definitivamente recomendaría sus servicios a amigos y familiares.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">María García</h5>
+            <p class="card-text">
+              Muy profesional y atento. Recomendaría a cualquier persona que busque un seguro de calidad. Sus precios son competitivos y su servicio es excepcional.
+              Los conocí a través de un amigo y desde el primer contacto me hicieron sentir valorada como cliente.
+              Tienen un equipo de atención al cliente muy amable y eficiente, siempre dispuestos a ayudar y resolver cualquier duda que pueda surgir. Me sentí segura y confiada al elegirlos como mi proveedor de seguros.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Carlos López</h5>
+            <p class="card-text">
+              El proceso fue sencillo y rápido. Estoy satisfecho con el servicio recibido.
+              Cuando necesité asistencia, el equipo estuvo disponible y resolvió mis dudas de manera eficiente, llegando incluso a ofrecerme opciones personalizadas que se ajustaban a mis necesidades.
+              Sin duda volveré a utilizar sus servicios en el futuro.
+              Cuando tuve un accidente menor, el proceso de reclamación fue rápido y sin complicaciones. Me guiaron a través de cada paso y me aseguraron que todo se manejara de manera justa y transparente.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-3 mt-5">
+    <div class="container">
+      <p>&copy; 2026 Dragon Insurances. Todos los derechos reservados.</p>
+      
+      <p>Nuestras redes sociales:  
+        <button type="button" class="btn btn-danger">
+        <i class="bi bi-facebook"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16"> 
+        <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/> 
+      </svg>
+      Facebook
+      </button>
+
+      <button type="button" class="btn btn-danger">
+      <i class="bi bi-twitter-x"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+        <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+      </svg>
+      Twitter
+      </button>
+
+      <button type="button" class="btn btn-danger">
+      <i class="bi bi-instagram"></i>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+        <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+      </svg>
+      Instagram
+      </button>
+    </div>
+    </p>
+  </footer>
+
+</body>
+
+</html>

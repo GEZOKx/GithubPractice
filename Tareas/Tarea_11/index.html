@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Súper Fresco — Reseñas de clientes</title>
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="resenas-super-fresco-plantilla.js"></script> <!-- importante el defer para que espere a que cargue el html antes de ejecutar el js -->
+  </head>
+  <body>
+    <header>
+      <h1>Súper Fresco — Reseñas de clientes</h1>
+    </header>
+
+    <main>
+      <section class="resenas">
+        <h2>Reseñas</h2>
+        <div id="listaResenas"></div>
+      </section>
+
+      <section class="acciones">
+        <h2>Acciones</h2>
+
+        <div class="bloque">
+          <label>Autor (destacar / quitar destacado / eliminar)</label>
+          <input type="text" id="inputAutor" placeholder="ej. Marta" />
+          <button onclick="manejarDestacar()">Destacar</button>
+          <button onclick="manejarQuitarDestacado()">Quitar destacado</button>
+          <button onclick="manejarEliminar()">Eliminar</button>
+        </div>
+
+        <div class="bloque">
+          <label>Calificaciones a destacar (separadas por coma)</label>
+          <input type="text" id="inputCalificaciones" placeholder="ej. 4,5" />
+          <button onclick="manejarDestacarPorCalificacion()">Alternar destacado por calificación</button>
+        </div>
+
+        <div class="bloque">
+          <label>Ver todas las reseñas de un producto</label>
+          <input type="text" id="inputProductoDatos" placeholder="ej. Café" />
+          <button onclick="manejarVerDatos()">Ver datos</button>
+          <span id="resultadoDatos"></span>
+        </div>
+
+        <div class="bloque">
+          <label>Buscar reseñas (calificación mínima)</label>
+          <input type="number" id="inputCalifMinima" min="1" max="5" placeholder="ej. 4" />
+          <button onclick="manejarBuscar()">Buscar</button>
+          <span id="resultadoBusqueda"></span>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

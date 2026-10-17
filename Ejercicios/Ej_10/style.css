@@ -1,0 +1,171 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f4f9f4;
+  color: #1b3a1f;
+}
+
+header {
+  background-color: #2e7d32;
+  color: white;
+  padding: 1rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+main {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 1.5rem;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 700px) {
+  main {
+    grid-template-columns: 1fr;
+  }
+}
+
+.personal h2,
+.acciones h2,
+.consola-panel h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+  color: #2e7d32;
+}
+
+.columna-derecha {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+#listaEmpleados {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#listaEmpleados li {
+  position: relative;
+  background: white;
+  border: 1px solid #d7e5d8;
+  border-radius: 10px;
+  padding: 0.75rem 5.5rem 0.75rem 1rem;
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+}
+
+#listaEmpleados button.btnAumentar {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.6rem;
+  border: none;
+  background-color: #2e7d32;
+  color: white;
+  padding: 0.25rem 0.6rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 0.8rem;
+}
+
+#listaEmpleados button.btnAumentar:hover {
+  background-color: #256428;
+}
+
+.acciones {
+  background: white;
+  border: 1px solid #d7e5d8;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.nomina {
+  font-weight: bold;
+  font-size: 1.1rem;
+  margin-bottom: 0.75rem;
+}
+
+.btnDeshacer {
+  display: block;
+  width: 100%;
+  border: 1px solid #2e7d32;
+  background-color: white;
+  color: #2e7d32;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.btnDeshacer:hover {
+  background-color: #e8f5e9;
+}
+
+.bloque {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.bloque input {
+  width: 100%;
+  padding: 0.4rem;
+  margin-bottom: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.bloque button {
+  border: none;
+  background-color: #2e7d32;
+  color: white;
+  padding: 0.4rem 1rem;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.bloque span {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #444;
+}
+
+.consola-panel {
+  background: white;
+  border: 1px solid #d7e5d8;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.consola-panel .nota {
+  font-size: 0.8rem;
+  color: #666;
+  margin-top: 0;
+}
+
+.consola {
+  background: #f4f9f4;
+  border: 1px solid #d7e5d8;
+  border-radius: 8px;
+  padding: 0.75rem 1rem;
+  font-family: Consolas, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
