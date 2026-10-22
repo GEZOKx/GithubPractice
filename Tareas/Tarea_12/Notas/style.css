@@ -1,0 +1,26 @@
+.caja {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+}
+
+.caja.grande {
+    width: 400px;
+    padding: 20px;
+    background-color: lightblue;
+}
+
+.contenedor {
+border: 2px solid red;
+}
+
+#lista li{
+    currsor: pointer;
+}
+
+#lista li:seleccionado{
+    color: gray;
+    font-weight: bold;
+}

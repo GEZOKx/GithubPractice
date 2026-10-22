@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Súper Fresco - Favoritos</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Código de alumnos -->
+    <script src="favoritos.js" defer></script>
+    <!-- Mi código -->
+    <!-- <script src="resuelto.js" defer></script> -->
+  </head>
+
+  <body>
+    <section class="section">
+      <div class="card">
+        <header class="card-header">
+          <p class="card-header-title">Favoritos - Súper Fresco</p>
+          <p class="fav-counter">❤ Favoritos: <span id="fav-count">0</span></p>
+        </header>
+
+        <div class="card-content">
+          <input type="text" id="search-input" placeholder="Buscar producto..." />
+
+          <form id="add-product-form" class="add-product-form">
+            <div class="form-row">
+              <label for="new-product-name">Nombre del producto nuevo</label>
+              <input type="text" id="new-product-name" placeholder="Ej. Miel orgánica" required />
+            </div>
+            <div class="form-row">
+              <label for="new-product-category">Categoría</label>
+              <select id="new-product-category">
+                <option value="frutas">Frutas y verduras</option>
+                <option value="lacteos">Lácteos</option>
+                <option value="panaderia">Panadería</option>
+                <option value="bebidas">Bebidas</option>
+                <option value="abarrotes">Abarrotes</option>
+              </select>
+              <span id="category-preview" class="producto-categoria cat-frutas">Frutas y verduras</span>
+            </div>
+            <button type="submit">Agregar producto</button>
+            <p id="add-product-error" class="error-message" hidden></p>
+          </form>
+
+          <p class="hint">Haz clic en un producto para seleccionarlo y presiona <kbd>F</kbd> para marcarlo como favorito.</p>
+
+          <ul id="products-list" class="products-list">
+            <li class="producto cat-frutas" tabindex="0">
+              <div class="producto-info">
+                <span class="producto-nombre">Manzanas</span>
+                <span class="producto-categoria cat-frutas">Frutas y verduras</span>
+              </div>
+              <div class="producto-acciones">
+                <button class="btn-favorito">♡</button>
+              </div>
+            </li>
+            <li class="producto cat-lacteos" tabindex="0">
+              <div class="producto-info">
+                <span class="producto-nombre">Yogurt griego</span>
+                <span class="producto-categoria cat-lacteos">Lácteos</span>
+              </div>
+              <div class="producto-acciones">
+                <button class="btn-favorito">♡</button>
+              </div>
+            </li>
+            <li class="producto cat-panaderia" tabindex="0">
+              <div class="producto-info">
+                <span class="producto-nombre">Pan de caja</span>
+                <span class="producto-categoria cat-panaderia">Panadería</span>
+              </div>
+              <div class="producto-acciones">
+                <button class="btn-favorito">♡</button>
+              </div>
+            </li>
+            <li class="producto cat-abarrotes" tabindex="0">
+              <div class="producto-info">
+                <span class="producto-nombre">Café soluble</span>
+                <span class="producto-categoria cat-abarrotes">Abarrotes</span>
+              </div>
+              <div class="producto-acciones">
+                <button class="btn-favorito">♡</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <footer class="card-footer">
+          <p class="instructions">Selecciona, busca y marca tus productos favoritos.</p>
+        </footer>
+      </div>
+    </section>
+  </body>
+</html>
+
+<!-- /*Calificación
+	20-El formulario usa preventDefault y agrega el producto a la lista solo si el nombre no está vacío
+	20-Antes de agregar, valida que no exista ya un producto con ese nombre exacto (sin importar mayúsculas/espacios) y muestra un mensaje de error si ya existe
+	20-El producto agregado por el formulario funciona igual que los demás: se puede seleccionar, marcar favorito (clic o tecla F), por delegación
+	20-El select de categoría usa el evento change para actualizar una vista previa antes de enviar
+	20-El buscador sigue filtrando en vivo y el contador de favoritos se mantiene correcto
+*/ -->

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Teoría: Eventos en JavaScript</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 0 20px; line-height: 1.5; color: #222; }
+    header { border-bottom: 2px solid #333; padding: 16px 0; }
+    nav a { margin-right: 10px; font-size: 0.9em; }
+    section { padding: 24px 0; border-bottom: 1px solid #ddd; }
+    table { border-collapse: collapse; margin: 12px 0; }
+    table, th, td { border: 1px solid #999; padding: 6px 10px; }
+    pre { background: #f4f4f4; padding: 12px; overflow-x: auto; border-left: 4px solid #888; }
+    code { font-family: Consolas, monospace; }
+    footer { padding: 16px 0; color: #666; font-size: 0.9em; }
+    .extra { display: inline-block; background: #fdf1e0; color: #b5651d; font-weight: bold; font-size: 0.8em; padding: 2px 8px; border-radius: 4px; margin-bottom: 8px; }
+    .tip { background: #e8f5e9; border-left: 4px solid #2e7d32; padding: 8px 12px; margin: 12px 0; }
+    .warn { background: #fdecea; border-left: 4px solid #c62828; padding: 8px 12px; margin: 12px 0; }
+    h1 { margin-bottom: 4px; }
+    .subtitulo { color: #555; margin-top: 0; }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Teoría: Eventos en JavaScript</h1>
+	</p>
+    <nav>
+      <a href="#addeventlistener">addEventListener</a>
+      <a href="#formas-viejas">Formas viejas</a>
+      <a href="#this">this en el callback</a>
+      <a href="#objeto-evento">El objeto evento</a>
+      <a href="#teclado">Eventos de teclado</a>
+      <a href="#remove-once">removeEventListener y once</a>
+      <a href="#formularios">Formularios y preventDefault</a>
+      <a href="#input-change">input vs change</a>
+      <a href="#bubbling">Event bubbling</a>
+      <a href="#delegacion">Delegación de eventos</a>
+      <a href="#observer">Patrón Observer</a>
+    </nav>
+  </header>
+
+  <main>
+
+    <section id="addeventlistener">
+      <h2>1. addEventListener</h2>
+      <p>Es la forma correcta de "escuchar" un evento sobre un elemento. Recibe el tipo de evento (como texto) y una función que se ejecuta cuando ese evento ocurre.</p>
+      <pre><code>const boton = document.querySelector("#miBoton");
+
+boton.addEventListener("click", function () {
+  console.log("¡Me dieron clic!");
+});
+
+// también funciona con arrow function
+boton.addEventListener("click", () => console.log("¡Clic otra vez!"));</code></pre>
+      <div class="tip">A diferencia de otras formas de poner un evento (ver siguiente sección), <code>addEventListener</code> permite agregar <strong>varios</strong> listeners del mismo tipo al mismo elemento — ninguno sobrescribe al otro.</div>
+      <p>Lista completa de eventos disponibles: <a href="https://developer.mozilla.org/es/docs/Web/Events">MDN — Events</a>.</p>
+    </section>
+
+    <section id="formas-viejas">
+      <h2>2. Formas viejas de poner un evento <span class="extra">EXTRA</span></h2>
+      <p>Antes de <code>addEventListener</code> existían otras dos formas. Conviene reconocerlas (van a aparecer en código viejo) pero no usarlas en código nuevo.</p>
+      <p><strong>Evento inline</strong>, escrito directo en el HTML — mezcla HTML con lógica de JS, difícil de mantener:</p>
+      <pre><code>&lt;button onclick="console.log('clic')"&gt;Botón&lt;/button&gt;</code></pre>
+      <p><strong>Propiedad <code>onclick</code></strong> del elemento — ya es JS puro, pero solo permite <strong>un</strong> handler por evento: el segundo que asignen sobrescribe al primero.</p>
+      <pre><code>boton.onclick = function () {
+  console.log("Primero");
+};
+
+boton.onclick = function () {
+  console.log("Segundo"); // esta es la única que queda
+};</code></pre>
+    </section>
+
+    <section id="this">
+      <h2>3. this dentro del callback</h2>
+      <p>Cuando el callback es una <strong>función normal</strong> (no arrow), <code>this</code> dentro de ella apunta al elemento que disparó el evento — es un caso más de la regla que ya vieron: <code>this</code> depende de quién llama a la función, y aquí quien la "llama" es el elemento.</p>
+      <pre><code>function alAgrandar() {
+  this.classList.toggle("grande");
+}
+
+document.querySelector(".caja").addEventListener("click", alAgrandar);</code></pre>
+      <div class="warn">Si el callback es una <strong>arrow function</strong>, <code>this</code> NO apunta al elemento — toma el <code>this</code> del lugar donde se escribió la arrow function (como ya vieron antes). Por eso, cuando se necesita <code>this</code> como el elemento, el callback debe ser una función normal.</div>
+    </section>
+
+    <section id="objeto-evento">
+      <h2>4. El objeto evento</h2>
+      <p>El callback siempre recibe un argumento — el <strong>objeto evento</strong> — con información sobre lo que pasó. Es común nombrarlo <code>e</code> o <code>evt</code>.</p>
+      <pre><code>boton.addEventListener("click", function (e) {
+  console.log(e); // el objeto completo, para explorar en consola
+});</code></pre>
+      <table>
+        <thead><tr><th>Propiedad</th><th>Qué da</th></tr></thead>
+        <tbody>
+          <tr><td><code>e.target</code></td><td>El elemento exacto donde ocurrió el evento</td></tr>
+          <tr><td><code>e.currentTarget</code></td><td>El elemento que TIENE el listener (puede ser distinto de <code>target</code> — ver delegación)</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="teclado">
+      <h2>5. Eventos de teclado</h2>
+      <p><code>keydown</code> (se presiona) y <code>keyup</code> (se suelta) dan información de la tecla en el objeto evento:</p>
+      <pre><code>const input = document.querySelector("#texto");
+
+input.addEventListener("keydown", function (e) {
+  console.log("Se presionó:", e.key);  // ej. "a", "Enter", "Shift"
+  console.log("Código:", e.code);      // ej. "KeyA", "Enter", "ShiftLeft"
+});</code></pre>
+      <p>Para detectar teclas sin importar qué elemento tenga el foco, se escucha sobre <code>window</code> en vez de un elemento específico:</p>
+      <pre><code>window.addEventListener("keydown", function (e) {
+  if (e.code === "ArrowUp") console.log("¡Arriba!");
+});</code></pre>
+    </section>
+
+    <section id="remove-once">
+      <h2>6. removeEventListener y once</h2>
+      <p>Para quitar un listener, se necesita la misma función que se usó al agregarlo — por eso una arrow function anónima no se puede quitar después, hay que guardarla en una variable.</p>
+      <pre><code>function saludar() {
+  console.log("Hola");
+}
+
+boton.addEventListener("click", saludar);
+boton.removeEventListener("click", saludar); // ya no hace nada al dar clic</code></pre>
+      <p>Cuando se sabe de antemano que el listener solo debe dispararse una vez, es más simple usar la opción <code>{ once: true }</code> — se quita solo después de la primera vez:</p>
+      <pre><code>boton.addEventListener("click", saludar, { once: true });</code></pre>
+    </section>
+
+    <section id="formularios">
+      <h2>7. Formularios y preventDefault</h2>
+      <p>El evento <code>submit</code> se dispara al enviar un formulario — y por default, el navegador recarga o cambia de página. <code>e.preventDefault()</code> cancela ese comportamiento, para manejar el envío con JS en su lugar.</p>
+      <pre><code>const form = document.querySelector("#miForm");
+
+form.addEventListener("submit", function (e) {
+  e.preventDefault();
+  console.log("Formulario interceptado, no hubo recarga");
+});</code></pre>
+      <p>Los campos del formulario se pueden leer por su atributo <code>name</code>, a través de <code>form.elements</code>:</p>
+      <pre><code>&lt;input type="text" name="usuario" /&gt;</code></pre>
+      <pre><code>const usuario = form.elements.usuario;
+console.log(usuario.value);</code></pre>
+    </section>
+
+    <section id="input-change">
+      <h2>8. input vs change</h2>
+      <table>
+        <thead><tr><th>Evento</th><th>Se dispara...</th></tr></thead>
+        <tbody>
+          <tr><td><code>input</code></td><td>Cada vez que el valor cambia, mientras se escribe</td></tr>
+          <tr><td><code>change</code></td><td>Solo cuando el elemento pierde el foco, después de haber cambiado</td></tr>
+        </tbody>
+      </table>
+      <pre><code>const campo = document.querySelector("#texto");
+const vista = document.querySelector("#vistaPrevia");
+
+campo.addEventListener("input", function () {
+  vista.textContent = campo.value; // se actualiza letra por letra
+});</code></pre>
+    </section>
+
+    <section id="bubbling">
+      <h2>9. Event bubbling (propagación)</h2>
+      <p>Cuando ocurre un evento dentro de un elemento anidado, el evento "burbujea" hacia arriba: se dispara también en cada elemento padre, hasta llegar a <code>document</code>.</p>
+      <pre><code>&lt;div id="contenedor"&gt;
+  &lt;button id="interno"&gt;Clic aquí&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+      <pre><code>document.querySelector("#interno").addEventListener("click", () => {
+  console.log("Clic en el botón");
+});
+
+document.querySelector("#contenedor").addEventListener("click", () => {
+  console.log("Clic en el contenedor"); // también se dispara
+});</code></pre>
+      <p>Para evitar que un evento siga burbujeando hacia los padres, se usa <code>e.stopPropagation()</code> dentro del callback.</p>
+    </section>
+
+    <section id="delegacion">
+      <h2>10. Delegación de eventos</h2>
+      <p>En vez de poner un listener en cada elemento de una lista (que puede crecer dinámicamente), se pone <strong>un solo</strong> listener en el contenedor, y se usa <code>e.target</code> para saber en cuál elemento hijo se hizo clic. Aprovecha el bubbling de la sección anterior.</p>
+      <pre><code>const lista = document.querySelector("#lista");
+
+lista.addEventListener("click", function (e) {
+  console.log("Se hizo clic en:", e.target);
+  e.target.classList.toggle("seleccionado");
+});</code></pre>
+      <div class="tip">Esto funciona incluso con elementos que todavía no existen cuando se agregó el listener — si después se agrega un nuevo <code>&lt;li&gt;</code> a la lista, ya queda cubierto, sin tener que agregarle su propio listener.</div>
+    </section>
+
+    <section id="observer">
+      <h2>11. Patrón Observer</h2>
+      <p><code>addEventListener</code> es, por dentro, una implementación del patrón <strong>Observer</strong>: un objeto (el "sujeto") mantiene una lista de funciones interesadas ("observadores"), y cuando algo pasa, les avisa a todas llamándolas una por una.</p>
+      <p>Se puede construir la misma idea a mano, sin que tenga nada que ver con el DOM — sirve para que cualquier objeto propio "avise" cuando algo le pasa:</p>
+      <pre><code>class Emisor {
+  constructor() {
+    this.listeners = [];
+  }
+
+  addEventListener(callback) {
+    this.listeners.push(callback);
+  }
+
+  emitir(dato) {
+    this.listeners.forEach((callback) => callback(dato));
+  }
+}
+
+const carrito = new Emisor();
+
+carrito.addEventListener((total) => console.log(`Nuevo total: $${total}`));
+carrito.addEventListener((total) => console.log(`Actualizando UI con $${total}`));
+
+carrito.emitir(150); // dispara ambos listeners, en el orden en que se agregaron</code></pre>
+      <div class="tip">Visto así, <code>document.querySelector(...).addEventListener(...)</code> deja de ser "magia especial de los botones" — es el mismo patrón que cualquiera puede escribir en una clase propia.</div>
+      <p><span class="extra">EXTRA</span> Esta versión mínima no tiene <code>removeListener</code> ni tipos de evento (solo un tipo de aviso) — una versión más completa guardaría los callbacks agrupados por tipo de evento, igual que hace el DOM real.</p>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>Para leer más:
+      <a href="https://developer.mozilla.org/es/docs/Web/API/EventTarget/addEventListener">MDN — addEventListener</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Event">MDN — Event</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Learn_web_development/Core/Scripting/Event_bubbling">MDN — event bubbling</a> ·
+      <a href="https://developer.mozilla.org/es/docs/Web/API/Element/keydown_event">MDN — keydown</a> ·
+      <a href="https://refactoring.guru/es/design-patterns/observer">Refactoring Guru — patrón Observer</a>
+    </p>
+  </footer>
+
+</body>
+</html>

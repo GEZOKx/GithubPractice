@@ -113,12 +113,21 @@ function quitarResena(autor) {
 // 9. Regresa un objeto nuevo que combina base y extra, sin modificar
 //    ninguno de los dos. Si un campo se repite, el valor de extra gana.
 function combinarFiltros(base, extra = {}) {
+  return { ...base, ...extra };
+
 }
 
 // 10. Alterna (toggle) la clase "destacada" en todas las tarjetas ya
 //     pintadas cuya calificación esté entre las que se reciban como
 //     argumentos: si no la tenía se la pone, si ya la tenía se la quita.
 function destacarPorCalificacion(...calificaciones) { 
+  const tarjetas = document.querySelectorAll("#listaResenas .tarjeta-resena");
+  tarjetas.forEach((tarjeta) => {
+    const calificacion = Number(tarjeta.dataset.calificacion);
+    if (calificaciones.includes(calificacion)) {
+      tarjeta.classList.toggle("destacada");
+    }
+  });
 }
 
 // ============================================================
