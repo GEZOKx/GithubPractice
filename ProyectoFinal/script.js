@@ -1,4 +1,4 @@
-// Generar opciones de años para el select
+// ===== Generar opciones de años para el select =====
 const select = document.getElementById("anioVehiculo");
 const anioActual = new Date().getFullYear();
 
@@ -9,16 +9,20 @@ for (let anio = anioActual + 1; anio >= anioActual - 30; anio--) {
   select.appendChild(opcion);
 }
 
+// ===== Elementos que se usan en varias partes =====
 const form = document.getElementById("formCotizar");
 const email = document.getElementById("email");
 const telefono = document.getElementById("telefono");
+const marca = document.getElementById("VehiculoMarca");
 
-// Teléfono: solo números mientras escribe
+const nombresTipo = { auto: "Auto/SUV", pickup: "Pickup", moto: "Motocicleta" };
+
+// ===== Teléfono: solo números mientras escribe =====
 telefono.addEventListener("input", function () {
   this.value = this.value.replace(/\D/g, "");
 });
 
-// Correo: validar al salir del campo
+// ===== Correo: validar al salir del campo =====
 email.addEventListener("blur", function () {
   if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.value)) {
     this.classList.remove("is-invalid");
@@ -27,7 +31,7 @@ email.addEventListener("blur", function () {
   }
 });
 
-// Envío del formulario
+// ===== Envío del formulario =====
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -35,7 +39,7 @@ form.addEventListener("submit", function (e) {
   const terminos = document.getElementById("terminos").checked;
   let valido = true;
 
-  // repetir validaciones de email y teléfono
+  // Correo
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
     email.classList.add("is-invalid");
     valido = false;
@@ -43,13 +47,15 @@ form.addEventListener("submit", function (e) {
     email.classList.remove("is-invalid");
   }
 
-  if (document.getElementById("telefono").value.length !== 10) {
-    document.getElementById("telefono").classList.add("is-invalid");
+  // Teléfono
+  if (telefono.value.length !== 10) {
+    telefono.classList.add("is-invalid");
     valido = false;
   } else {
-    document.getElementById("telefono").classList.remove("is-invalid");
+    telefono.classList.remove("is-invalid");
   }
 
+  // Nombre
   if (document.getElementById("nombre").value.trim() === "") {
     document.getElementById("nombre").classList.add("is-invalid");
     valido = false;
@@ -57,32 +63,32 @@ form.addEventListener("submit", function (e) {
     document.getElementById("nombre").classList.remove("is-invalid");
   }
 
-  if (document.getElementById("VehiculoMarca").value.trim() === "") {
-    document.getElementById("VehiculoMarca").classList.add("is-invalid");
+  // Marca
+  if (marca.value.trim() === "") {
+    marca.classList.add("is-invalid");
     valido = false;
   } else {
-    document.getElementById("VehiculoMarca").classList.remove("is-invalid");
+    marca.classList.remove("is-invalid");
   }
 
+  // Modelo
   if (document.getElementById("VehiculoModelo").value.trim() === "") {
     document.getElementById("VehiculoModelo").classList.add("is-invalid");
     valido = false;
   } else {
     document.getElementById("VehiculoModelo").classList.remove("is-invalid");
   }
-  
-  
-  // anio del vehículo
-const selectAnio = document.getElementById("anioVehiculo");
-if (anio === "") {
-  selectAnio.classList.add("is-invalid");
-  valido = false;
-} else {
-  selectAnio.classList.remove("is-invalid");
-}
 
-  // términos y condiciones
-  if (!document.getElementById("terminos").checked) {
+  // Año del vehículo
+  if (anio === "") {
+    select.classList.add("is-invalid");
+    valido = false;
+  } else {
+    select.classList.remove("is-invalid");
+  }
+
+  // Términos y condiciones
+  if (!terminos) {
     document.getElementById("terminos").classList.add("is-invalid");
     valido = false;
   } else {
@@ -93,23 +99,27 @@ if (anio === "") {
     return; // detiene el envío si algo falló
   }
 
-  // Aquí irá el cálculo de la cotización
-const resultado = document.getElementById("resultado");
+  // 1. Calcular la cotización
+  const tipo = document.querySelector('input[name="btnradio"]:checked').value;
+  const antiguedad = Math.max(0, anioActual - parseInt(anio));
 
-const tipo = document.querySelector('input[name="btnradio"]:checked').value;
-const antiguedad = Math.max(0, anioActual - parseInt(anio));
+  const base = { auto: 11000, pickup: 25000, moto: 8000 };
+  let precio = base[tipo] + (antiguedad * 100); // recargo por año
 
-const base = { auto: 11000, pickup: 25000, moto: 8000 };
-let precio = base[tipo] + (antiguedad * 100); // recargo por año
+  // 2. Mostrar en el modal
+  const modelo = document.getElementById("VehiculoModelo").value.trim();
 
-resultado.innerHTML =
-  '<div class="alert alert-success">Su cotización estimada es de <strong>$' +
-  precio.toLocaleString("es-MX") + '</strong> al año.</div>';
+  document.getElementById("modalDetalle").textContent =
+    nombresTipo[tipo] + " " + marca.value.trim() + " " + modelo + " " + anio;
+  document.getElementById("modalPrecio").textContent =
+    "$" + precio.toLocaleString("es-MX");
+
+  const modal = new bootstrap.Modal(document.getElementById("modalCotizacion"));
+  modal.show();
 });
 
-// Cambiar placeholder de marca según tipo de vehículo
+// ===== Cambiar placeholder de marca según tipo de vehículo =====
 const radios = document.querySelectorAll('input[name="btnradio"]');
-const marca = document.getElementById("VehiculoMarca");
 
 radios.forEach(function (radio) {
   radio.addEventListener("change", function () {
@@ -123,7 +133,17 @@ radios.forEach(function (radio) {
   });
 });
 
+// ===== Quitar el borde rojo en cuanto el usuario corrige =====
+const campos = document.querySelectorAll("#formCotizar input, #formCotizar select");
+
+campos.forEach(function (campo) {
+  campo.addEventListener("input", function () {
+    this.classList.remove("is-invalid");
+  });
+});
+
+// ===== Animaciones al hacer scroll =====
 AOS.init({
-  duration: 800, // animacion we
-  // once: true     anima solo la primera vez que aparece, de momento la dejo asi
+  duration: 800,
+  // once: true  // anima solo la primera vez que aparece
 });

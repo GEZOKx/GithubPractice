@@ -163,3 +163,20 @@ body {
   color: #999;
   font-family: Consolas, monospace;
 }
+
+
+@media (prefers-reduced-motion: reduce) {
+  .socios-pista {
+    animation: none;
+  }
+
+  .socios {
+ 
+    overflow-x: auto;
+  }
+
+  .socios-pista img[aria-hidden="true"] {
+  
+    display: none;
+  }
+}
