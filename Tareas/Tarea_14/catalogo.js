@@ -45,14 +45,35 @@ formBuscarEl.addEventListener("submit", function (e) {
 //      el catálogo`.
 //    - Si fue exitosa, convierta la respuesta con await response.json() y
 //      regrese el arreglo que viene en data.products.
+function redondearADecimales(numero, decimales) {
+  const factor = Math.pow(10, decimales);
+  return Math.round(numero * factor) / factor;
+}
 
+async function cargarCatalogo() {
+  const response = await fetch(URL_CATALOGO);
+  if (!response.ok) {
+    throw new Error(`Error ${response.status} al cargar el catálogo`);
+  }
+  const data = await response.json();
+  return data.products;
+}
 // 2. Crea una función textoRating(reviews):
 //    regresa el texto del rating promedio de reviews[i].rating
 //    (puedes usar reduce).
 //    - Si el arreglo está vacío o no existe: "Sin calificaciones".
 //    - Si hay reviews regresa el promedio con un decimal, por ejemplo: "Rating 4.3".
 //        - existe una función que redondea a n decimales.
-
+//        - si existe un numero entero, por ejemplo 4, regresa "Rating 4.0" (un decimal).
+function textoRating(reviews) {
+  if (!reviews || reviews.length === 0) {
+    return "Sin calificaciones";
+  }
+  const sumaRatings = reviews.reduce((acumulador, review) => acumulador + review.rating, 0);
+  const promedio = sumaRatings / reviews.length;
+  const promedioRedondeado = redondearADecimales(promedio, 1);
+  return `Rating ${promedioRedondeado.toFixed(1)}`;
+}
 // 3. Crea una función crearElementoProducto(producto):
 //    - Regresar un <li> con la siguiente estructura:
 //    - debe tener class="producto"
@@ -71,12 +92,43 @@ formBuscarEl.addEventListener("submit", function (e) {
 //          - El rating: el texto que regresa textoRating(producto.reviews) (del punto 2).
 //          - El codigo de barras de arriba y la marca también de arriba.
 //      - Adjunta tanto la <img> como <div> al <li> y regresar el <li>.
+function crearElementoProducto(producto) {
+  const li = document.createElement("li");
+  li.className = "producto";
 
+  const marca = producto.brand || "Genérico";
+  const codigo = producto.meta && producto.meta.barcode ? producto.meta.barcode : "N/A";
+  const imgSrc = (producto.images && producto.images.length > 0) ? producto.images[0] : (producto.thumbnail || "");
+
+  const img = document.createElement("img");
+  img.alt = producto.title;
+  img.src = imgSrc;
+
+  const divInfo = document.createElement("div");
+  divInfo.className = "producto-info";
+
+  divInfo.appendChild(crearSpan("producto-nombre", producto.title));
+  divInfo.appendChild(crearSpan("producto-marca", marca));
+  divInfo.appendChild(crearSpan("producto-precio", `$${producto.price}`));
+  divInfo.appendChild(crearSpan("producto-rating", textoRating(producto.reviews)));
+  divInfo.appendChild(crearSpan("producto-codigo", codigo));
+
+  li.appendChild(img);
+  li.appendChild(divInfo);
+
+  return li;
+}
 // 4. Crea una función pintarProductos(productos) que:
 //    - Vacíe #lista-productos (listaProductosEl), puede ser con textContent en vacío.
 //    - Recorra el arreglo  y agregue a la lista por cada producto
 //      el elemento que regresa crearElementoProducto del punto 3
-
+function pintarProductos(productos) {
+  listaProductosEl.textContent = "";
+  productos.forEach(producto => {
+    const elementoProducto = crearElementoProducto(producto);
+    listaProductosEl.appendChild(elementoProducto);
+  });
+} 
 // 5. Crea una función async init() que:
 //    - Llame a ocultarError() y mostrarCargando().
 //    - Dentro de un try: llame a cargarCatalogo() del punto 1 con await y,
@@ -89,6 +141,22 @@ formBuscarEl.addEventListener("submit", function (e) {
 //    cuando la página termine de cargar:
 
 //    document.addEventListener("DOMContentLoaded", init); // DESCOMENTAR (PUNTO 5)
+async function init() {
+  ocultarError();
+  mostrarCargando();
+  try {
+    const productos = await cargarCatalogo();
+    pintarProductos(productos);
+  } catch (error) {
+    mostrarError(error.message);
+  } finally {
+    ocultarCargando();
+  }
+}
+
+document.addEventListener("DOMContentLoaded", init); // DESCOMENTAR (PUNTO 5)
+
+
 
 async function buscarProductos(texto) {
   ocultarError();
