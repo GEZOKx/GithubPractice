@@ -147,3 +147,37 @@ AOS.init({
   duration: 800,
   // once: true  // anima solo la primera vez que aparece
 });
+// ===== Animación de bienvenida =====  //
+const bienvenida = document.getElementById("bienvenida");
+const logoBienvenida = document.getElementById("bienvenidaLogo");
+const logoHero = document.getElementById("heroLogo");
+
+const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+if (reducirMovimiento) {
+  bienvenida.remove();
+} else {
+  document.body.style.overflow = "hidden";   // sin scroll mientras dura
+  logoHero.style.visibility = "hidden";      // el real aparece al final
+
+  setTimeout(function () {
+    const desde = logoBienvenida.getBoundingClientRect();
+    const hasta = logoHero.getBoundingClientRect();
+
+    const dx = hasta.left - desde.left;
+    const dy = hasta.top - desde.top ;      
+
+    bienvenida.classList.add("saliendo");
+    logoBienvenida.style.transform = "translate(" + dx + "px, " + dy + "px)";
+  }, 3000);
+
+  function terminar() {
+    logoHero.style.visibility = "visible";
+    document.body.style.overflow = "";
+    bienvenida.remove();
+  }
+
+  logoBienvenida.addEventListener("transitionend", function (e) {
+    if (e.propertyName === "transform") terminar();
+  });
+}

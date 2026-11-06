@@ -1,3 +1,22 @@
+/* Paleta de colores */
+:root {
+  --tinto-900: #140000;   /* fondo base */
+  --tinto-800: #1f0505;   /* tarjetas y superficies */
+  --tinto-700: #2e0a0a;   /* bordes y zonas elevadas */
+  --acento: #b71c1c;      /* botones y detalles */
+  --acento-hover: #d32f2f;
+  --dorado: #c9a24d;      /* toque formal: títulos, líneas finas */
+  --texto: #f3e9e9;
+  --texto-suave: #b8a2a2;
+}
+
+[data-bs-theme="dark"] {
+  --bs-body-bg: var(--tinto-900);
+  --bs-body-color: var(--texto);
+  --bs-secondary-color: var(--texto-suave);
+  --bs-border-color: var(--tinto-700);
+}
+
 .socios {
   overflow: hidden;
 }
@@ -27,4 +46,104 @@
 .socios:hover .socios-pista {
   animation-play-state: paused;
 }
+/* cotizaccion */
+.franja-pasos {
+  background-color: #1f0505;
+  border-top: 1px solid #2e0a0a;
+  border-bottom: 1px solid #2e0a0a;
+}
 
+.paso-numero {
+  width: 56px;
+  height: 56px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #c9a24d;
+  border-radius: 50%;
+  color: #c9a24d;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+/* Bienvenida */
+.bienvenida {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #140000;
+  transition: background-color 0.8s ease;
+}
+
+.bienvenida.saliendo {
+  background-color: transparent;
+  pointer-events: none;
+}
+
+.bienvenida-logo {
+  height: 200px;
+  transition: transform 1.2s ease-in-out;
+  animation: aparecer 1s ease backwards;
+}
+
+.bienvenida-textos {
+  text-align: center;
+  transition: opacity 0.5s ease;
+}
+
+.bienvenida.saliendo .bienvenida-textos {
+  opacity: 0;
+}
+
+.bienvenida-titulo {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 1rem 0 0.25rem;
+  animation: subir 1s ease 0.4s backwards;
+}
+
+.bienvenida-sub {
+  color: #ffff;
+  animation: subir 1s ease 0.9s backwards;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes subir {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Scrollbar personalizado */
+html {
+  background-color: #140000;
+}
+
+html {
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: #7a1f1f #140000; /* color del "pulgar" y color del riel */
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #000000;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #7a1f1f;
+    border-radius: 6px;
+  }
+}
