@@ -1,3 +1,95 @@
+// ===== Bienvenida: la D vuela hasta encajar en el logo del hero =====
+// (va al principio para que un error más abajo no deje la pantalla bloqueada)
+history.scrollRestoration = "manual";
+
+const bienvenida = document.getElementById("bienvenida");
+const logoVuela = document.getElementById("bienvenidaLogo");
+const logoHero = document.getElementById("heroLogo");
+
+// Zona de la D dentro del logo completo, como fracción (0 a 1) del ancho y del alto.
+// Son estimaciones a ojo: ajústelas hasta que el recorte quede bien.
+const D = { x: 0.074, y: 0, ancho: 0.225, alto: 0.845 };
+
+const ESPERA = 2600;   // ms que la D se queda en el centro
+const VUELO = 1500;    // ms que tarda en llegar al hero
+
+let terminado = false;
+
+function terminar() {
+  if (terminado) return;
+  terminado = true;
+  document.body.classList.remove("cargando");  // muestra el hero y devuelve el scroll
+  bienvenida.remove();
+}
+
+function iniciarBienvenida() {
+  window.scrollTo(0, 0);
+  const hero = logoHero.getBoundingClientRect();
+
+  // El logo que vuela se coloca exactamente encima del hero
+  logoVuela.style.left = hero.left + "px";
+  logoVuela.style.top = hero.top + "px";
+  logoVuela.style.width = hero.width + "px";
+  logoVuela.style.height = hero.height + "px";
+
+  // Zona de la D en píxeles, dentro del logo
+  const dX = D.x * hero.width;
+  const dY = D.y * hero.height;
+  const dAncho = D.ancho * hero.width;
+  const dAlto = D.alto * hero.height;
+
+  // Cuánto se agranda la D en el centro de la pantalla
+  const escala = Math.min(document.documentElement.clientHeight * 0.38, 340) / dAlto;
+
+  // Dónde queremos el centro de la D y cuánto hay que mover el logo para lograrlo
+  const centroX = document.documentElement.clientWidth / 2;
+  const centroY = document.documentElement.clientHeight * 0.4;
+  const mueveX = centroX - hero.left - escala * (dX + dAncho / 2);
+  const mueveY = centroY - hero.top - escala * (dY + dAlto / 2);
+
+  // Recorte: solo se ve la D (arriba, derecha, abajo, izquierda)
+  const recorteD =
+    "inset(" + (D.y * 100) + "% " + ((1 - D.x - D.ancho) * 100) + "% " +
+    ((1 - D.y - D.alto) * 100) + "% " + (D.x * 100) + "%)";
+
+  const inicio = {
+    transform: "translate(" + mueveX + "px, " + mueveY + "px) scale(" + escala + ")",
+    clipPath: recorteD
+  };
+
+  logoVuela.style.transform = inicio.transform;
+  logoVuela.style.clipPath = inicio.clipPath;
+  bienvenida.classList.add("lista");
+
+  // Pasada la espera, la D viaja al hero mientras se revela el resto del logo
+  setTimeout(function () {
+    bienvenida.classList.add("saliendo");
+
+    const vuelo = logoVuela.animate(
+      [
+        inicio,
+        { transform: "translate(0px, 0px) scale(1)", clipPath: "inset(0% 0% 0% 0%)" }
+      ],
+      { duration: VUELO, easing: "cubic-bezier(0.65, 0, 0.35, 1)", fill: "forwards" }
+    );
+
+    vuelo.onfinish = terminar;
+  }, ESPERA);
+}
+
+const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+// Respaldo: pase lo que pase, la página se libera
+setTimeout(terminar, ESPERA + VUELO + 2500);
+
+if (reducirMovimiento) {
+  terminar();
+} else if (logoHero.complete) {
+  iniciarBienvenida();
+} else {
+  logoHero.addEventListener("load", iniciarBienvenida, { once: true });
+}
+
 // ===== Generar opciones de años para el select =====
 const select = document.getElementById("anioVehiculo");
 const anioActual = new Date().getFullYear();
@@ -147,37 +239,3 @@ AOS.init({
   duration: 800,
   // once: true  // anima solo la primera vez que aparece
 });
-// ===== Animación de bienvenida =====  //
-const bienvenida = document.getElementById("bienvenida");
-const logoBienvenida = document.getElementById("bienvenidaLogo");
-const logoHero = document.getElementById("heroLogo");
-
-const reducirMovimiento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-if (reducirMovimiento) {
-  bienvenida.remove();
-} else {
-  document.body.style.overflow = "hidden";   // sin scroll mientras dura
-  logoHero.style.visibility = "hidden";      // el real aparece al final
-
-  setTimeout(function () {
-    const desde = logoBienvenida.getBoundingClientRect();
-    const hasta = logoHero.getBoundingClientRect();
-
-    const dx = hasta.left - desde.left;
-    const dy = hasta.top - desde.top ;      
-
-    bienvenida.classList.add("saliendo");
-    logoBienvenida.style.transform = "translate(" + dx + "px, " + dy + "px)";
-  }, 3000);
-
-  function terminar() {
-    logoHero.style.visibility = "visible";
-    document.body.style.overflow = "";
-    bienvenida.remove();
-  }
-
-  logoBienvenida.addEventListener("transitionend", function (e) {
-    if (e.propertyName === "transform") terminar();
-  });
-}

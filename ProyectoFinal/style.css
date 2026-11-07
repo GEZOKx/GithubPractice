@@ -1,26 +1,140 @@
-/* Paleta de colores */
+/* ===== Paleta: blanco y tinto ===== */
 :root {
-  --tinto-900: #310505;   /* fondo base */
-  --tinto-800: #1f0505;   /* tarjetas y superficies */
-  --tinto-700: #2e0a0a;   /* bordes y zonas elevadas */
-  --acento: #b71c1c;      /* botones y detalles */
-  --acento-hover: #d32f2f;
-  --dorado: #c9a24d;      /* toque formal: títulos, líneas finas */
-  --texto: #f3e9e9;
-  --texto-suave: #b8a2a2;
-}
+  --tinto-900: #3a0a12;
+  --tinto-700: #6b1424;
+  --tinto-600: #8a1c30;
+  --tinto-500: #a62a40;
+  --rosado: #f7eef0;
+  --rosado-borde: #e8d3d7;
+  --texto: #2b1115;
+  --texto-suave: #6e5156;
+  --blanco: #ffffff;
 
-[data-bs-theme="dark"] {
-  --bs-body-bg: var(--tinto-900);
+  /* Bootstrap toma estos valores para sus componentes */
+  --bs-body-bg: #ffffff;
+  --bs-body-bg-rgb: 255, 255, 255;
   --bs-body-color: var(--texto);
+  --bs-body-color-rgb: 43, 17, 21;
   --bs-secondary-color: var(--texto-suave);
-  --bs-border-color: var(--tinto-700);
+  --bs-border-color: var(--rosado-borde);
+  --bs-primary: #8a1c30;
+  --bs-primary-rgb: 138, 28, 48;
+  --bs-danger: #8a1c30;
+  --bs-danger-rgb: 138, 28, 48;
+  --bs-link-color: #8a1c30;
+  --bs-link-color-rgb: 138, 28, 48;
+  --bs-link-hover-color: #6b1424;
+  --bs-link-hover-color-rgb: 107, 20, 36;
 }
 
-/*Hero`*/
+/* ===== Base y fondo dinámico (muy sutil) ===== */
+html {
+  background-color: var(--blanco);
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: var(--tinto-600) var(--rosado);
+}
+
+@supports not (scrollbar-color: auto) {
+  ::-webkit-scrollbar { width: 12px; }
+  ::-webkit-scrollbar-track { background: var(--rosado); }
+  ::-webkit-scrollbar-thumb { background: var(--tinto-600); border-radius: 6px; }
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #ffffff, #fbf4f5, #f4e6e9, #ffffff);
+  background-size: 400% 400%;
+  animation: fondo 30s ease infinite;
+}
+
+@keyframes fondo {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--tinto-700);
+}
+
+/* ===== Botones ===== */
+.btn-danger {
+  --bs-btn-bg: var(--tinto-600);
+  --bs-btn-border-color: var(--tinto-600);
+  --bs-btn-hover-bg: var(--tinto-700);
+  --bs-btn-hover-border-color: var(--tinto-700);
+  --bs-btn-active-bg: var(--tinto-900);
+  --bs-btn-active-border-color: var(--tinto-900);
+}
+
+.btn-outline-danger {
+  --bs-btn-color: var(--tinto-600);
+  --bs-btn-border-color: var(--tinto-600);
+  --bs-btn-hover-color: #fff;
+  --bs-btn-hover-bg: var(--tinto-600);
+  --bs-btn-hover-border-color: var(--tinto-600);
+  --bs-btn-active-color: #fff;
+  --bs-btn-active-bg: var(--tinto-600);
+  --bs-btn-active-border-color: var(--tinto-600);
+}
+
+/* ===== Campos del formulario ===== */
+.form-control:focus,
+.form-select:focus {
+  border-color: var(--tinto-500);
+  box-shadow: 0 0 0 0.25rem rgba(138, 28, 48, 0.2);
+}
+
+.form-check-input:checked {
+  background-color: var(--tinto-600);
+  border-color: var(--tinto-600);
+}
+
+.form-check-input:focus {
+  border-color: var(--tinto-500);
+  box-shadow: 0 0 0 0.25rem rgba(138, 28, 48, 0.2);
+}
+
+.panel-form {
+  background-color: var(--blanco);
+  border: 2px solid var(--tinto-600);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(107, 20, 36, 0.1);
+}
+
+/* ===== Hero ===== */
 .hero {
-  padding: 2rem 0;
-  background: radial-gradient(ellipse at center, #c9a24d, #3e0000 70%);
+  background-color: var(--blanco);   /* igual al fondo del PNG */
+  padding: 2rem 1rem;
+  border-bottom: 4px solid var(--tinto-700);
+}
+
+.hero-logo {
+  display: block;
+  margin: 0 auto;
+  width: min(100%, 760px);
+  height: auto;
+}
+
+/* Oculto hasta que la D de la bienvenida aterrice sobre él */
+.cargando .hero-logo {
+  visibility: hidden;
+}
+
+/* ===== Carrusel de socios ===== */
+.socios-seccion {
+  background-color: var(--blanco);
+  border-bottom: 1px solid var(--rosado-borde);
+}
+
+.socios-titulo {
+  color: var(--tinto-600);
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
 }
 
 .socios {
@@ -38,10 +152,17 @@
   height: 100px;
   margin-right: 2rem;
   filter: grayscale(100%);
-  transition: filter 0.3s;
+  opacity: 0.8;
+  transition: filter 0.3s, opacity 0.3s;
 }
+
 .socios-pista img:hover {
   filter: grayscale(0%);
+  opacity: 1;
+}
+
+.socios:hover .socios-pista {
+  animation-play-state: paused;
 }
 
 @keyframes desplazar {
@@ -49,14 +170,19 @@
   to   { transform: translateX(-50%); }
 }
 
-.socios:hover .socios-pista {
-  animation-play-state: paused;
-}
-/* cotizaccion */
+/* ===== Tres pasos ===== */
 .franja-pasos {
-  background-color: #3e0000;
-  border-top: 1px solid #2e0a0a;
-  border-bottom: 1px solid #2e0a0a;
+  background-color: var(--tinto-700);
+  color: #fff;
+}
+
+.franja-pasos h2,
+.franja-pasos h3 {
+  color: #fff;
+}
+
+.franja-pasos p {
+  color: rgba(255, 255, 255, 0.82);
 }
 
 .paso-numero {
@@ -66,24 +192,56 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid #c9a24d;
+  border: 2px solid #fff;
   border-radius: 50%;
-  color: #c9a24d;
+  color: #fff;
   font-size: 1.5rem;
   font-weight: 700;
 }
 
-/* Bienvenida */
+/* ===== Aviso ===== */
+.aviso {
+  background-color: var(--rosado);
+  border-left: 4px solid var(--tinto-600);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  color: var(--texto);
+}
+
+/* ===== Opiniones ===== */
+.card {
+  --bs-card-bg: var(--blanco);
+  --bs-card-border-color: var(--rosado-borde);
+  border-top: 4px solid var(--tinto-600);
+  box-shadow: 0 6px 18px rgba(107, 20, 36, 0.08);
+}
+
+.card-title {
+  color: var(--tinto-700);
+}
+
+/* ===== Footer ===== */
+.footer-tinto {
+  background-color: var(--tinto-900);
+  color: #fff;
+}
+
+/* ===== Modal ===== */
+.modal-content {
+  border: 2px solid var(--tinto-600);
+}
+
+/* ===== Bienvenida ===== */
+body.cargando {
+  overflow: hidden;
+}
+
 .bienvenida {
   position: fixed;
   inset: 0;
   z-index: 2000;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: #140000;
-  transition: background-color 0.8s ease;
+  background-color: var(--blanco);
+  transition: background-color 0.9s ease;
 }
 
 .bienvenida.saliendo {
@@ -91,15 +249,33 @@
   pointer-events: none;
 }
 
+/* La D que vuela: el JS le pone posición, tamaño y recorte */
 .bienvenida-logo {
-  height: 200px;
-  transition: transform 1.2s ease-in-out;
-  animation: aparecer 1s ease backwards;
+  position: fixed;
+  max-width: none;
+  transform-origin: 0 0;
+  pointer-events: none;
+  visibility: hidden;
 }
 
 .bienvenida-textos {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 66%;
+  padding: 0 1rem;
   text-align: center;
+  visibility: hidden;
   transition: opacity 0.5s ease;
+}
+
+.bienvenida.lista .bienvenida-logo {
+  visibility: visible;
+  animation: aparecer 0.9s ease backwards;
+}
+
+.bienvenida.lista .bienvenida-textos {
+  visibility: visible;
 }
 
 .bienvenida.saliendo .bienvenida-textos {
@@ -107,20 +283,23 @@
 }
 
 .bienvenida-titulo {
-  font-size: 2rem;
+  margin: 0 0 0.25rem;
+  font-size: clamp(1.4rem, 4vw, 2rem);
   font-weight: 600;
-  margin: 1rem 0 0.25rem;
-  animation: subir 1s ease 0.4s backwards;
+  color: var(--tinto-700);
 }
 
 .bienvenida-sub {
-  color: #ffff;
-  animation: subir 1s ease 0.9s backwards;
+  margin: 0;
+  color: var(--texto-suave);
 }
 
+.bienvenida.lista .bienvenida-titulo { animation: subir 1s ease 0.5s backwards; }
+.bienvenida.lista .bienvenida-sub    { animation: subir 1s ease 1s backwards; }
+
 @keyframes aparecer {
-  from { opacity: 0; transform: scale(0.8); }
-  to   { opacity: 1; transform: scale(1); }
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 
 @keyframes subir {
@@ -128,28 +307,15 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
-/* Scrollbar personalizado */
-html {
-  background-color: #140000;
-}
+/* ===== Accesibilidad: movimiento reducido ===== */
+@media (prefers-reduced-motion: reduce) {
+  body { animation: none; }
 
-html {
-  scrollbar-gutter: stable;
-  scrollbar-width: thin;
-  scrollbar-color: #7a1f1f #140000; /* color del "pulgar" y color del riel */
-}
+  .socios-pista { animation: none; }
+  .socios { overflow-x: auto; }
+  .socios-pista img[aria-hidden="true"] { display: none; }
 
-@supports not (scrollbar-color: auto) {
-  ::-webkit-scrollbar {
-    width: 12px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #000000;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #7a1f1f;
-    border-radius: 6px;
-  }
+  .bienvenida { display: none; }
+  body.cargando { overflow: auto; }
+  .cargando .hero-logo { visibility: visible; }
 }
