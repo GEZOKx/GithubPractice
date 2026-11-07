@@ -1,6 +1,6 @@
 /* Paleta de colores */
 :root {
-  --tinto-900: #140000;   /* fondo base */
+  --tinto-900: #310505;   /* fondo base */
   --tinto-800: #1f0505;   /* tarjetas y superficies */
   --tinto-700: #2e0a0a;   /* bordes y zonas elevadas */
   --acento: #b71c1c;      /* botones y detalles */
@@ -15,6 +15,12 @@
   --bs-body-color: var(--texto);
   --bs-secondary-color: var(--texto-suave);
   --bs-border-color: var(--tinto-700);
+}
+
+/*Hero`*/
+.hero {
+  padding: 2rem 0;
+  background: radial-gradient(ellipse at center, #c9a24d, #3e0000 70%);
 }
 
 .socios {
@@ -48,7 +54,7 @@
 }
 /* cotizaccion */
 .franja-pasos {
-  background-color: #1f0505;
+  background-color: #3e0000;
   border-top: 1px solid #2e0a0a;
   border-bottom: 1px solid #2e0a0a;
 }
