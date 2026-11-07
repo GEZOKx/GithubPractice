@@ -108,7 +108,7 @@ function crearElementoProducto(producto) {
   divInfo.className = "producto-info";
 
   divInfo.appendChild(crearSpan("producto-nombre", producto.title));
-  divInfo.appendChild(crearSpan("producto-marca", marca));
+  divInfo.appendChild(crearSpan("producto-marca", producto.tags || "Genérico"));
   divInfo.appendChild(crearSpan("producto-precio", `$${producto.price}`));
   divInfo.appendChild(crearSpan("producto-rating", textoRating(producto.reviews)));
   divInfo.appendChild(crearSpan("producto-codigo", codigo));

@@ -3,36 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Clase en vivo: AJAX, API, JSON y fetch</title>
-    <link rel="stylesheet" href="style.css" />
-    <script src="notas.js" defer></script>
+    <title>AJAX, API, JSON y fetch</title>
   </head>
   <body>
-    <header class="clase-header">
-      <h1>Clase en vivo: AJAX, API, JSON y fetch</h1>
-      <p>API real: jsonplaceholder.typicode.com (usuarios y tareas) — otra API distinta a la de la tarea, mismo patrón.</p>
+    <header>
+      <h1>AJAX, API, JSON y fetch</h1>
+      <script src="notas.js" defer></script>
     </header>
 
 
     <main>
-      <div class="aviso-sin-internet">
-        <strong>Si no hay internet</strong>
-        <p>Todas las demos usan <code>fetch</code> real. Sin conexión mostrarán el error de red (es justo lo que enseña la demo 9). Para poder seguir la clase igual, activa los datos de respaldo: se reemplaza <code>fetch</code> por una versión local con las mismas respuestas.</p>
-        <label>
-          <input type="checkbox" id="chk-respaldo" />
-          Usar datos de respaldo (sin internet)
-        </label>
-      </div>
+      <section id="demo-1">
+        <h2>1. fetch básico</h2>
+        <p>Pedimos datos a una URL y vemos qué regresa fetch antes de tocar nada más.</p>
+        <button id="btn-1">Hacer fetch</button>
+        <pre id="out-1"></pre>
+        <div>Nota: &lt;pre&gt; es un elemento HTML que respeta espacios y saltos de línea, ideal para mostrar resultados o JSON. Aquí cada &lt;pre&gt; es solo la caja donde se imprime el resultado; su id (out-1, out-2…) sirve para encontrarlo desde JavaScript.</div>
+      </section>
+
+
+      <section id="demo-2">
+        <h2>2. response.json() es otra promesa</h2>
+        <p>El Response no es el JSON todavía — hay que parsearlo.</p>
+        <button id="btn-2">Ver response vs json()</button>
+        <pre id="out-2"></pre>
+      </section>
+
+
+      <section id="demo-3">
+        <h2>3. Revisando response.ok (el error "silencioso")</h2>
+        <p>Pedimos un usuario que no existe (404) y mostramos que fetch NO lanza error solo.</p>
+        <button id="btn-3">Pedir usuario inexistente</button>
+        <pre id="out-3"></pre>
+        <div>response.ok: propiedad booleana del Response. Es true si el status es 2xx (200 a 299) y false si es 404, 500, etc. fetch NO rechaza con un 404 (el servidor sí contestó), por eso se revisa a mano. if (!response.ok) se lee “si la respuesta NO fue exitosa” (! es el NO lógico).</div>
+      </section>
+
+
+      <section id="demo-4">
+        <h2>4. Lanzando un Error a mano cuando !response.ok</h2>
+        <p>Ahora sí detectamos el 404 y lo convertimos en un error real que cae en catch.</p>
+        <button id="btn-4">Pedir con manejo correcto</button>
+        <pre id="out-4"></pre>
+      </section>
+
+
+      <section id="demo-5">
+        <h2>5. JSON anidado</h2>
+        <p>Cada usuario trae address.geo.lat (tres niveles) y company.name (dos niveles).</p>
+        <button id="btn-5">Ver un usuario completo</button>
+        <pre id="out-5"></pre>
+        <div>address.geo.lat: se lee de izquierda a derecha, un punto por nivel: usuario → address (objeto) → geo (objeto) → lat (el valor). Es lo mismo que usuario["address"]["geo"]["lat"]. Si algún nivel no existe (undefined), el siguiente punto lanza error.</div>
+      </section>
+
+
+      <section id="demo-6">
+        <h2>6. Calcular sobre un arreglo de objetos</h2>
+        <p>Sacamos el porcentaje de tareas terminadas (filter) y la latitud promedio de los usuarios (reduce), cuidando el caso sin datos (null), con toFixed y un ternario para el texto.</p>
+        <button id="btn-6">Calcular porcentajes</button>
+        <pre id="out-6"></pre>
+      </section>
+
+
+      <section id="demo-7">
+        <h2>7. Creando una lista en el DOM</h2>
+        <p>Limpiamos el contenedor y agregamos un elemento por cada usuario, con su imagen (img.src / img.alt), usando createElement y textContent (sin innerHTML).</p>
+        <button id="btn-7">crear usuarios</button>
+        <ul id="lista-usuarios"></ul>
+        <div>img.src: es la URL de la imagen. Usamos pravatar.cc.</div>
+      </section>
+
+
+      <section id="demo-8">
+        <h2>8. Query string</h2>
+        <p>Mandamos un parámetro en la URL (?userId=...), codificado con encodeURIComponent.</p>
+        <input type="text" id="input-user-id" placeholder="id de usuario, ej. 1" />
+        <button id="btn-8">Ver sus tareas</button>
+        <pre id="out-8"></pre>
+      </section>
+
+
+      <section id="demo-9">
+        <h2>9. async/await + try/catch/finally: todo el proceso en una función</h2>
+        <p>La función muestra "cargando", crea o muestra un error, y siempre limpia al final.</p>
+        <button id="btn-9a">Cargar usuarios</button>
+        <button id="btn-9b">Simular error de dominio</button>
+        <p id="estado-9"></p>
+      </section>
     </main>
-    <section class="demo" id="demo-1">
-      <h2>1. fetch básico</h2>
-      <p>Pedimos datos a una URL y vemos qué regresa <code>fetch</code> antes de tocar nada más.</p>
-      <button id="btn-1">Hacer fetch</button>
-      <pre id="out-1" class="salida"></pre>
-      <button id="btn-2">Response json</button>
-      <pre id="out-2" class="salida"></pre>
-      <button id="btn-3">RandomUser</button>
-      <div class="nota"><strong>Nota:</strong> <code>&lt;pre&gt;</code> es un elemento HTML que respeta espacios y saltos de línea, ideal para mostrar resultados o JSON. Aquí cada <code>&lt;pre class="salida"&gt;</code> es solo la caja donde se imprime el resultado; su <code>id</code> (<code>out-1</code>, <code>out-2</code>…) sirve para encontrarlo desde JavaScript.</div>
-    </section>
   </body>
 </html>
