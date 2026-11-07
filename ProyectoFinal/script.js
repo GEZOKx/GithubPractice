@@ -105,9 +105,12 @@ for (let anio = anioActual + 1; anio >= anioActual - 30; anio--) {
 const form = document.getElementById("formCotizar");
 const email = document.getElementById("email");
 const telefono = document.getElementById("telefono");
-const marca = document.getElementById("VehiculoMarca");
+const marca = document.getElementById("VehiculoMarca");          // ahora es un select
+const modeloSelect = document.getElementById("VehiculoModelo");  // también
+const radios = document.querySelectorAll('input[name="btnradio"]');
 
 const nombresTipo = { auto: "Auto/SUV", pickup: "Pickup", moto: "Motocicleta" };
+const RECARGO_POR_ANIO = 100;
 
 // ===== Teléfono: solo números mientras escribe =====
 telefono.addEventListener("input", function () {
@@ -123,11 +126,71 @@ email.addEventListener("blur", function () {
   }
 });
 
+// ===== Catálogo de vehículos (datos.json) =====
+let catalogo = {};
+
+function tipoActual() {
+  return document.querySelector('input[name="btnradio"]:checked').value;
+}
+
+// Vacía un select y lo llena con una opción inicial más las opciones dadas
+function llenar(selectEl, opciones, textoInicial) {
+  selectEl.innerHTML = "";
+
+  const inicial = document.createElement("option");
+  inicial.value = "";
+  inicial.textContent = textoInicial;
+  inicial.disabled = true;
+  inicial.selected = true;
+  selectEl.appendChild(inicial);
+
+  opciones.forEach(function (texto) {
+    const opcion = document.createElement("option");
+    opcion.value = texto;
+    opcion.textContent = texto;
+    selectEl.appendChild(opcion);
+  });
+}
+
+function cargarMarcas() {
+  llenar(marca, Object.keys(catalogo[tipoActual()]), "Seleccione la marca");
+  llenar(modeloSelect, [], "Seleccione primero la marca");
+  modeloSelect.disabled = true;
+  marca.classList.remove("is-invalid");
+  modeloSelect.classList.remove("is-invalid");
+}
+
+fetch("datos.json")
+  .then(function (respuesta) {
+    return respuesta.json();
+  })
+  .then(function (json) {
+    catalogo = json;
+    cargarMarcas();
+  })
+  .catch(function () {
+    marca.innerHTML = '<option value="">No se pudo cargar el catálogo</option>';
+  });
+
+// Cambia el tipo de vehículo: se reinician marca y modelo
+radios.forEach(function (radio) {
+  radio.addEventListener("change", cargarMarcas);
+});
+
+// Cambia la marca: se llenan los modelos de esa marca
+marca.addEventListener("change", function () {
+  const modelos = Object.keys(catalogo[tipoActual()][marca.value]);
+  llenar(modeloSelect, modelos, "Seleccione el modelo");
+  modeloSelect.disabled = false;
+  modeloSelect.classList.remove("is-invalid");
+});
+
 // ===== Envío del formulario =====
 form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const anio = document.getElementById("anioVehiculo").value;
+  const modelo = modeloSelect.value;
   const terminos = document.getElementById("terminos").checked;
   let valido = true;
 
@@ -156,7 +219,7 @@ form.addEventListener("submit", function (e) {
   }
 
   // Marca
-  if (marca.value.trim() === "") {
+  if (marca.value === "") {
     marca.classList.add("is-invalid");
     valido = false;
   } else {
@@ -164,11 +227,11 @@ form.addEventListener("submit", function (e) {
   }
 
   // Modelo
-  if (document.getElementById("VehiculoModelo").value.trim() === "") {
-    document.getElementById("VehiculoModelo").classList.add("is-invalid");
+  if (modelo === "") {
+    modeloSelect.classList.add("is-invalid");
     valido = false;
   } else {
-    document.getElementById("VehiculoModelo").classList.remove("is-invalid");
+    modeloSelect.classList.remove("is-invalid");
   }
 
   // Año del vehículo
@@ -191,38 +254,20 @@ form.addEventListener("submit", function (e) {
     return; // detiene el envío si algo falló
   }
 
-  // 1. Calcular la cotización
-  const tipo = document.querySelector('input[name="btnradio"]:checked').value;
+  // 1. Calcular la cotización: precio del modelo + recargo por antigüedad
+  const tipo = tipoActual();
   const antiguedad = Math.max(0, anioActual - parseInt(anio));
-
-  const base = { auto: 11000, pickup: 25000, moto: 8000 };
-  let precio = base[tipo] + (antiguedad * 100); // recargo por año
+  const precioBase = catalogo[tipo][marca.value][modelo];
+  const precio = precioBase + (antiguedad * RECARGO_POR_ANIO);
 
   // 2. Mostrar en el modal
-  const modelo = document.getElementById("VehiculoModelo").value.trim();
-
   document.getElementById("modalDetalle").textContent =
-    nombresTipo[tipo] + " " + marca.value.trim() + " " + modelo + " " + anio;
+    nombresTipo[tipo] + " " + marca.value + " " + modelo + " " + anio;
   document.getElementById("modalPrecio").textContent =
     "$" + precio.toLocaleString("es-MX");
 
   const modal = new bootstrap.Modal(document.getElementById("modalCotizacion"));
   modal.show();
-});
-
-// ===== Cambiar placeholder de marca según tipo de vehículo =====
-const radios = document.querySelectorAll('input[name="btnradio"]');
-
-radios.forEach(function (radio) {
-  radio.addEventListener("change", function () {
-    if (this.value === "auto") {
-      marca.placeholder = "Ej. Toyota, Nissan, Mazda";
-    } else if (this.value === "pickup") {
-      marca.placeholder = "Ej. Ford, Chevrolet, Ram";
-    } else {
-      marca.placeholder = "Ej. Honda, Yamaha, Suzuki";
-    }
-  });
 });
 
 // ===== Quitar el borde rojo en cuanto el usuario corrige =====
@@ -232,10 +277,26 @@ campos.forEach(function (campo) {
   campo.addEventListener("input", function () {
     this.classList.remove("is-invalid");
   });
+  campo.addEventListener("change", function () {
+    this.classList.remove("is-invalid");
+  });
 });
 
 // ===== Animaciones al hacer scroll =====
 AOS.init({
   duration: 800,
   // once: true  // anima solo la primera vez que aparece
+});
+
+// ===== Carrusel "¿Por qué elegirnos?" =====
+// Va dentro de DOMContentLoaded porque el script de Bootstrap (con defer)
+// se ejecuta después de este archivo, pero antes de ese evento.
+document.addEventListener("DOMContentLoaded", function () {
+  const carruselPorque = document.getElementById("carruselPorque");
+  const carrusel = bootstrap.Carousel.getOrCreateInstance(carruselPorque);
+
+  // Solo avanza solo si el usuario no pidió reducir el movimiento
+  if (!reducirMovimiento) {
+    carrusel.cycle();
+  }
 });

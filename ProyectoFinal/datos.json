@@ -1,0 +1,12 @@
+{
+  "auto": {
+    "Toyota": { "Corolla": 13500, "Yaris": 11200, "RAV4": 17800 },
+    "Nissan": { "Versa": 11800, "March": 10500, "Sentra": 13200 }
+  },
+  "pickup": {
+    "Ford": { "Lobo": 27500, "Ranger": 24800 }
+  },
+  "moto": {
+    "Italika": { "FT150": 7200, "DM200": 8100 }
+  }
+}

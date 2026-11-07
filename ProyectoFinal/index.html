@@ -100,6 +100,63 @@
       </div>
     </section>
 
+    <!-- ¿Por qué elegirnos? -->
+    <section class="porque-nosotros py-5">
+      <div class="container">
+        <h2 class="text-center mb-4">¿Por qué elegirnos?</h2>
+
+        <div id="carruselPorque" class="carousel slide" aria-label="Razones para elegir Dragon Insurances">
+
+          <!-- Puntos de navegación -->
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carruselPorque" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Razón 1"></button>
+            <button type="button" data-bs-target="#carruselPorque" data-bs-slide-to="1" aria-label="Razón 2"></button>
+            <button type="button" data-bs-target="#carruselPorque" data-bs-slide-to="2" aria-label="Razón 3"></button>
+          </div>
+
+          <!-- Diapositivas -->
+          <div class="carousel-inner rounded-4 overflow-hidden">
+
+            <div class="carousel-item active" data-bs-interval="6000">
+              <div class="porque-slide">
+                <i class="bi bi-lightning-charge-fill" aria-hidden="true"></i>
+                <h3>Cotización en minutos</h3>
+                <p>Sin llamadas ni filas: llene el formulario y vea su precio estimado al instante.</p>
+              </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="6000">
+              <div class="porque-slide">
+                <i class="bi bi-building-check" aria-hidden="true"></i>
+                <h3>Aseguradoras aliadas</h3>
+                <p>Trabajamos con GNP, BBVA, Chubb, Qualitas y Zurich para ofrecerle opciones de respaldo reconocido.</p>
+              </div>
+            </div>
+
+            <div class="carousel-item" data-bs-interval="6000">
+              <div class="porque-slide">
+                <i class="bi bi-shield-check" aria-hidden="true"></i>
+                <h3>Solo lo necesario</h3>
+                <p>Le pedimos únicamente los datos de su vehículo y de contacto. Sin trámites innecesarios.</p>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Flechas -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#carruselPorque" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Anterior</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carruselPorque" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
+
+        </div>
+      </div>
+    </section>
+
     <!-- Aviso -->
     <div class="container mt-5">
       <div class="aviso" role="note">
@@ -143,15 +200,19 @@
               <!-- Marca -->
               <div class="mb-3">
                 <label for="VehiculoMarca" class="form-label">Marca de su vehículo</label>
-                <input type="text" class="form-control" id="VehiculoMarca" name="marca" placeholder="Ingrese la marca de su vehículo">
-                <div class="invalid-feedback">Ingrese la marca de su vehículo.</div>
+                <select class="form-select" id="VehiculoMarca" name="marca">
+                  <option value="" selected disabled>Seleccione la marca</option>
+                </select>
+                <div class="invalid-feedback">Seleccione la marca de su vehículo.</div>
               </div>
 
               <!-- Modelo -->
               <div class="mb-3">
                 <label for="VehiculoModelo" class="form-label">Modelo de su vehículo</label>
-                <input type="text" class="form-control" id="VehiculoModelo" name="modelo" placeholder="Ingrese el modelo de su vehículo">
-                <div class="invalid-feedback">Ingrese el modelo de su vehículo.</div>
+                <select class="form-select" id="VehiculoModelo" name="modelo" disabled>
+                  <option value="" selected disabled>Seleccione primero la marca</option>
+                </select>
+                <div class="invalid-feedback">Seleccione el modelo de su vehículo.</div>
               </div>
             </div>
           </div>
