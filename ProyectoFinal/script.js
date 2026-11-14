@@ -8,7 +8,7 @@ const logoHero = document.getElementById("heroLogo");
 
 // Zona de la D dentro del logo completo, como fracción (0 a 1) del ancho y del alto.
 // Son estimaciones a ojo: ajústelas hasta que el recorte quede bien.
-const D = { x: 0.074, y: 0, ancho: 0.225, alto: 0.845 };
+const D = { x: 0.074, y: 0, ancho: 0.225, alto: 0.76 };
 
 const ESPERA = 2600;   // ms que la D se queda en el centro
 const VUELO = 1500;    // ms que tarda en llegar al hero
@@ -22,7 +22,8 @@ function terminar() {
   bienvenida.remove();
 }
 
-function iniciarBienvenida() {
+function iniciarBienvenida() 
+{
   window.scrollTo(0, 0);
   const hero = logoHero.getBoundingClientRect();
 
@@ -110,7 +111,6 @@ const modeloSelect = document.getElementById("VehiculoModelo");  // también
 const radios = document.querySelectorAll('input[name="btnradio"]');
 
 const nombresTipo = { auto: "Auto/SUV", pickup: "Pickup", moto: "Motocicleta" };
-const RECARGO_POR_ANIO = 100;
 
 // ===== Teléfono: solo números mientras escribe =====
 telefono.addEventListener("input", function () {
@@ -255,10 +255,14 @@ form.addEventListener("submit", function (e) {
   }
 
   // 1. Calcular la cotización: precio del modelo + recargo por antigüedad
+  const DEPRECIACION_POR_ANIO = 0.04;   // baja 4% por cada año de antigüedad
+  const FACTOR_MINIMO = 0.5;            // nunca baja de la mitad del precio base
   const tipo = tipoActual();
   const antiguedad = Math.max(0, anioActual - parseInt(anio));
   const precioBase = catalogo[tipo][marca.value][modelo];
-  const precio = precioBase + (antiguedad * RECARGO_POR_ANIO);
+
+  const factor = Math.max(FACTOR_MINIMO, 1 - antiguedad * DEPRECIACION_POR_ANIO);
+  const precio = Math.round(precioBase * factor);
 
   // 2. Mostrar en el modal
   document.getElementById("modalDetalle").textContent =

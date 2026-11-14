@@ -1,12 +1,113 @@
 {
   "auto": {
-    "Toyota": { "Corolla": 13500, "Yaris": 11200, "RAV4": 17800 },
-    "Nissan": { "Versa": 11800, "March": 10500, "Sentra": 13200 }
+    "Toyota": {
+      "Corolla": 13500,
+      "Yaris": 11200,
+      "RAV4": 17800,
+      "Camry": 16900,
+      "Avanza": 10900
+    },
+    "Nissan": {
+      "Versa": 11800,
+      "March": 10500,
+      "Sentra": 13200,
+      "Kicks": 14300,
+      "X-Trail": 18200
+    },
+    "Mazda": {
+      "Mazda 2": 11400,
+      "Mazda 3": 14100,
+      "CX-30": 15600,
+      "CX-5": 17200,
+      "CX-50": 18900
+    },
+    "Volkswagen": {
+      "Vento": 11300,
+      "Virtus": 12400,
+      "Jetta": 13900,
+      "Taos": 16100,
+      "Tiguan": 19400
+    },
+    "Chevrolet": {
+      "Aveo": 10200,
+      "Onix": 11100,
+      "Groove": 12900,
+      "Tracker": 14800,
+      "Equinox": 18300
+    }
   },
   "pickup": {
-    "Ford": { "Lobo": 27500, "Ranger": 24800 }
+    "Ford": {
+      "Lobo": 27500,
+      "Ranger": 24800,
+      "Maverick": 22900,
+      "F-250": 34500,
+      "F-350": 37200
+    },
+    "Chevrolet": {
+      "Silverado": 28900,
+      "Cheyenne": 27100,
+      "Colorado": 25200,
+      "Montana": 21800,
+      "S10 Max": 23400
+    },
+    "RAM": {
+      "700": 21500,
+      "1500": 31800,
+      "2500": 36400,
+      "3500": 39900,
+      "4000": 41800
+    },
+    "Toyota": {
+      "Hilux": 26400,
+      "Hilux Doble Cabina": 28600,
+      "Tacoma": 29700,
+      "Tacoma TRD": 32100,
+      "Tundra": 35800
+    },
+    "Nissan": {
+      "NP300": 23200,
+      "NP300 Doble Cabina": 25100,
+      "Frontier": 27800,
+      "Frontier PRO-4X": 30400,
+      "Titan": 36900
+    }
   },
   "moto": {
-    "Italika": { "FT150": 7200, "DM200": 8100 }
+    "Italika": {
+      "FT150": 7200,
+      "DM200": 8100,
+      "125Z": 6400,
+      "250Z": 8900,
+      "RC200": 8600
+    },
+    "Honda": {
+      "Navi": 6600,
+      "XR150L": 8300,
+      "CB190R": 9800,
+      "CBR250R": 10900,
+      "Africa Twin": 15800
+    },
+    "Yamaha": {
+      "XTZ125": 7600,
+      "R15": 10300,
+      "FZ25": 9600,
+      "NMAX": 9900,
+      "MT-03": 11200
+    },
+    "Suzuki": {
+      "GN125": 6900,
+      "Gixxer 150": 8200,
+      "Intruder 150": 8400,
+      "GSX-R150": 9100,
+      "V-Strom 250": 11800
+    },
+    "Bajaj": {
+      "Boxer CT100": 6200,
+      "Pulsar 150": 7400,
+      "Pulsar NS200": 9300,
+      "Avenger 220": 9700,
+      "Dominar 400": 13200
+    }
   }
 }
